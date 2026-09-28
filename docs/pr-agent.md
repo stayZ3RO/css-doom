@@ -1,6 +1,6 @@
 # PR-Agent review pilot
 
-PR-Agent adds an advisory AI review to small, same-repository pull requests against `main`. It runs when a PR is opened, reopened, or marked ready for review. The repository owner can request another review with an exact `/review` comment. Draft PRs, bot PRs, fork PRs, and PRs with more than 10 changed files are skipped. The action reads the diff through GitHub's API without checking out PR code. A human still decides whether to merge.
+PR-Agent adds an advisory AI review to small, same-repository pull requests against `main`. Reviews run when a PR is opened, reopened, or marked ready for review. To request another review, post an exact `/review` comment from an account with `OWNER` association. Draft PRs, bot PRs, fork PRs, and PRs with more than 10 changed files are skipped. The action reads the diff through GitHub's API without checking out PR code. Merge decisions stay manual.
 
 ## Enable
 
@@ -10,6 +10,6 @@ The action sends the PR diff to the selected model provider. Use this pilot only
 
 ## Cost and disablement
 
-Only the listed PR events and owner-issued `/review` comments can start a review. Automatic description and improvement tools are off. The workflow has a 10-file limit, model and output token limits, a 15-minute timeout, and cancels an earlier run for the same PR. PR-Agent's reported cost is an estimate; check the provider bill for actual spend.
+Only the listed PR events and exact `/review` comments with `OWNER` association can start a review. Automatic description and improvement tools are off. The workflow has a 10-file limit, model and output token limits, a 15-minute timeout, and cancels an earlier run for the same PR. PR-Agent's reported cost is an estimate; check the provider bill for actual spend.
 
 To stop reviews, remove `OPENAI_KEY` or `PR_AGENT_MODEL`, or disable **PR-Agent review** on the repository's Actions page.

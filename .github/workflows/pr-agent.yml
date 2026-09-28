@@ -1,0 +1,74 @@
+name: PR-Agent review
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, ready_for_review, reopened]
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: pr-agent-${{ github.repository }}-${{ github.event.pull_request.number || github.event.issue.number }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    if: >-
+      ${{ github.event.sender.type != 'Bot' &&
+          ((github.event_name == 'pull_request' && !github.event.pull_request.draft) ||
+           (github.event_name == 'issue_comment' &&
+            github.event.issue.pull_request != null &&
+            github.event.comment.body == '/review' &&
+            github.event.comment.author_association == 'OWNER')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check configuration and PR scope
+        id: gate
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MODEL_KEY: ${{ secrets.OPENAI_KEY }}
+          PR_AGENT_MODEL: ${{ vars.PR_AGENT_MODEL }}
+          PR_NUMBER: ${{ github.event.pull_request.number || github.event.issue.number }}
+        run: |
+          if [[ -z "$MODEL_KEY" || -z "$PR_AGENT_MODEL" ]]; then
+            echo 'PR-Agent skipped: add OPENAI_KEY and PR_AGENT_MODEL to enable reviews.'
+            exit 0
+          fi
+
+          pr_fields=$(gh api "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER" \
+            --jq '[.draft, .head.repo.full_name, .changed_files, .user.type] | @tsv')
+          IFS=$'\t' read -r draft head_repo file_count author_type <<< "$pr_fields"
+          if [[ "$draft" != false || "$head_repo" != "$GITHUB_REPOSITORY" ||
+                "$author_type" == Bot || ! "$file_count" =~ ^[0-9]+$ ]]; then
+            echo 'PR-Agent skipped: draft, fork, bot, or unavailable PR metadata.'
+            exit 0
+          fi
+          if (( file_count > 10 )); then
+            echo 'PR-Agent skipped: more than 10 changed files.'
+            exit 0
+          fi
+
+          echo 'enabled=true' >> "$GITHUB_OUTPUT"
+
+      - name: Review PR
+        if: steps.gate.outputs.enabled == 'true'
+        uses: The-PR-Agent/pr-agent@1d01f24f455bb879c1d9c557ad7de3d72dcc7975 # v0.46.0
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
+          CONFIG__MODEL: ${{ vars.PR_AGENT_MODEL }}
+          CONFIG__FALLBACK_MODELS: '[]'
+          CONFIG__MAX_MODEL_TOKENS: '8192'
+          CONFIG__MAX_OUTPUT_TOKENS: '4096'
+          CONFIG__OUTPUT_RUN_DETAILS: 'true'
+          CONFIG__OUTPUT_RUN_COST: 'true'
+          github_action_config.auto_review: 'true'
+          github_action_config.auto_describe: 'false'
+          github_action_config.auto_improve: 'false'
+          github_action_config.pr_actions: '["opened", "ready_for_review", "reopened"]'

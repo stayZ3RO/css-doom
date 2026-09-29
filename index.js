@@ -1,5 +1,5 @@
 /**
- * Entry point — initialization and main game loop.
+ * Entry point : initialization and main game loop.
  */
 
 import { state } from './src/game/state.js';

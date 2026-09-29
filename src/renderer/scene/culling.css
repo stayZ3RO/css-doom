@@ -4,7 +4,7 @@
  * render distance or outside the camera's view cone are hidden.
  *
  * Visibility is toggled using a paused animation with a computed negative
- * delay — a "type grinding" trick that converts a numeric 0/1 into a
+ * delay : a "type grinding" trick that converts a numeric 0/1 into a
  * keyword (visible/hidden) without needing CSS if().
  *
  * When if() is supported, we use display: none for full removal from the

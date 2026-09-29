@@ -1,5 +1,5 @@
 /**
- * Renderer constants — visual thresholds, DOOM-to-CSS conversion values,
+ * Renderer constants : visual thresholds, DOOM-to-CSS conversion values,
  * texture identifiers, and sprite lookup tables.
  */
 
@@ -7,7 +7,7 @@
 // Lighting
 // ============================================================================
 
-// Floors of even the darkest sectors never go fully black — a small minimum
+// Floors of even the darkest sectors never go fully black : a small minimum
 // keeps geometry visible and avoids "invisible wall" surprises.
 export const LIGHT_MINIMUM_BRIGHTNESS = 0.12;
 
@@ -42,14 +42,14 @@ export const THING_SPRITES = {
     3004: 'POSSA1',   // Zombieman
     3005: 'HEADA1',   // Cacodemon
     3006: 'SKULA1',   // Lost Soul
-    // Pickups — weapons
+    // Pickups : weapons
     2001: 'SHOTA0',   // Shotgun
     2002: 'MGUNA0',   // Chaingun
     2003: 'LAUNA0',   // Rocket Launcher
     2004: 'PLASA0',   // Plasma Rifle
     2005: 'CSAWA0',   // Chainsaw
     2006: 'BFUGA0',   // BFG
-    // Pickups — ammo
+    // Pickups : ammo
     2007: 'CLIPA0',   // Clip
     2008: 'SHELA0',   // Shells
     2010: 'ROCKA0',   // Rocket
@@ -57,7 +57,7 @@ export const THING_SPRITES = {
     2048: 'AMMOA0',   // Box of Ammo
     2049: 'SBOXA0',   // Box of Shells
     8:    'BPAKA0',   // Backpack
-    // Pickups — health & armor
+    // Pickups : health & armor
     2011: 'STIMA0',   // Stimpack
     2012: 'MEDIA0',   // Medikit
     2013: 'SOULA0',   // Soul Sphere
@@ -65,7 +65,7 @@ export const THING_SPRITES = {
     2015: 'BON2A0',   // Armor Bonus
     2018: 'ARM1A0',   // Green Armor
     2019: 'ARM2A0',   // Blue Armor
-    // Pickups — powerups
+    // Pickups : powerups
     2022: 'PINVA0',   // Invulnerability
     2023: 'PSTRA0',   // Berserk
     2024: 'PINSA0',   // Partial Invisibility

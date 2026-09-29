@@ -38,7 +38,7 @@
 }
 
 
-/* Sector containers — grouping nodes for CSS custom property inheritance.
+/* Sector containers : grouping nodes for CSS custom property inheritance.
    No transform, so they sit at the scene origin and don't affect 3D layout. */
 .sector {
     top: 0; left: 0; width: 0; height: 0;

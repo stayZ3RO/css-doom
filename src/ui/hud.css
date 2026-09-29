@@ -1,9 +1,9 @@
 /*
- * DOOM HUD — status bar, weapon, overlays, face, keys, digits
+ * DOOM HUD : status bar, weapon, overlays, face, keys, digits
  */
 
 /* ========================================================================
-   HUD Container — wraps status bar, weapon, and overlays
+   HUD Container : wraps status bar, weapon, and overlays
    ======================================================================== */
 
 #hud {
@@ -20,7 +20,7 @@
 }
 
 /* ========================================================================
-   Status Bar — flex container of independent sections
+   Status Bar : flex container of independent sections
    ======================================================================== */
 
 #status {
@@ -36,7 +36,7 @@
     transition: transform 0.3s ease-in 0.8s;
 }
 
-/* 320*2 = 640px — allow wrapping */
+/* 320*2 = 640px : allow wrapping */
 @media (max-width: 640px) {
     #status {
         flex-wrap: wrap;
@@ -221,7 +221,7 @@
 
 
 /* ========================================================================
-   Arms (weapon slots 2–7)
+   Arms (weapon slots 2-7)
    ======================================================================== */
 
 #hud-arms {

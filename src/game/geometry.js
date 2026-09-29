@@ -1,5 +1,5 @@
 /**
- * Pure geometry utilities — no game state, no spatial grid.
+ * Pure geometry utilities : no game state, no spatial grid.
  */
 
 /**
@@ -33,7 +33,7 @@ export function pointInPolygon(pointX, pointY, polygon) {
  * For degenerate zero-length segments, falls back to a point-in-circle test.
  */
 export function circleLineCollision(centerX, centerY, radius, segmentStartX, segmentStartY, segmentEndX, segmentEndY) {
-    // Fast AABB reject — skip if circle is far from the segment's bounding box
+    // Fast AABB reject : skip if circle is far from the segment's bounding box
     const minX = segmentStartX < segmentEndX ? segmentStartX : segmentEndX;
     const maxX = segmentStartX > segmentEndX ? segmentStartX : segmentEndX;
     const minY = segmentStartY < segmentEndY ? segmentStartY : segmentEndY;
@@ -45,7 +45,7 @@ export function circleLineCollision(centerX, centerY, radius, segmentStartX, seg
     const segmentDeltaY = segmentEndY - segmentStartY;
     const segmentLengthSquared = segmentDeltaX * segmentDeltaX + segmentDeltaY * segmentDeltaY;
 
-    // Degenerate segment (zero length) — just check distance from point to center
+    // Degenerate segment (zero length) : just check distance from point to center
     if (segmentLengthSquared === 0) {
         return (centerX - segmentStartX) ** 2 + (centerY - segmentStartY) ** 2 < radius * radius;
     }

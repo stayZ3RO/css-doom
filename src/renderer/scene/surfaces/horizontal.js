@@ -53,7 +53,7 @@ export function buildHorizontalSurface(sector, height, textureName, surfaceType)
     const surfaceElement = document.createElement('div');
     surfaceElement.className = surfaceType;
 
-    // Pass raw DOOM bounding box — CSS computes width, height, and position
+    // Pass raw DOOM bounding box : CSS computes width, height, and position
     surfaceElement.style.setProperty('--min-x', minX);
     surfaceElement.style.setProperty('--max-x', maxX);
     surfaceElement.style.setProperty('--min-y', minY);
@@ -72,7 +72,7 @@ export function buildHorizontalSurface(sector, height, textureName, surfaceType)
      *
      * Simple non-rectangular sectors use polygon() with percentage coordinates.
      *
-     * Rectangular sectors need no clip-path — the div is already the right shape.
+     * Rectangular sectors need no clip-path : the div is already the right shape.
      *
      * In both cases, DOOM Y is flipped (maxY - vertex.y) because DOOM Y
      * increases northward but CSS Y increases downward within the element.

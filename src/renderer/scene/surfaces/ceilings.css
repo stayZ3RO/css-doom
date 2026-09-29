@@ -1,4 +1,4 @@
-/* Ceilings — positioned from raw DOOM bounding box coordinates */
+/* Ceilings : positioned from raw DOOM bounding box coordinates */
 
 .ceiling {
     --x: calc((var(--min-x) + var(--max-x)) / 2);

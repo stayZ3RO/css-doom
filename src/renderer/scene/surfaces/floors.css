@@ -1,4 +1,4 @@
-/* Floors — positioned from raw DOOM bounding box coordinates */
+/* Floors : positioned from raw DOOM bounding box coordinates */
 
 .floor {
     --x: calc((var(--min-x) + var(--max-x)) / 2);

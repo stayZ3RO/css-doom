@@ -1,5 +1,5 @@
 /**
- * Enemy AI — state machine, movement, and per-frame update loop.
+ * Enemy AI : state machine, movement, and per-frame update loop.
  */
 
 import {
@@ -31,7 +31,7 @@ let lastAlertSoundTime = 0;
 
 // ============================================================================
 // DOOM-style 8-directional movement system
-// Based on: linuxdoom-1.10/p_enemy.c — direction enums, xspeed/yspeed,
+// Based on: linuxdoom-1.10/p_enemy.c : direction enums, xspeed/yspeed,
 // P_NewChaseDir, P_Move, P_TryWalk
 // ============================================================================
 
@@ -45,7 +45,7 @@ const DI_SOUTH = 6;
 const DI_SOUTHEAST = 7;
 const DI_NODIR = 8;
 
-// opposite[dir] — the reverse direction, used for turnaround prevention.
+// opposite[dir] : the reverse direction, used for turnaround prevention.
 // Based on: linuxdoom-1.10/p_enemy.c:opposite[]
 const oppositeDir = [DI_WEST, DI_SOUTHWEST, DI_SOUTH, DI_SOUTHEAST, DI_EAST, DI_NORTHEAST, DI_NORTH, DI_NORTHWEST, DI_NODIR];
 
@@ -61,14 +61,14 @@ const dirDY = [0, 0.7071, 1, 0.7071, 0, -0.7071, -1, -0.7071];
 
 /**
  * Rolls random melee damage for an enemy type using DOOM's exact formulas.
- * Based on: linuxdoom-1.10/p_enemy.c — A_TroopAttack, A_SargAttack, A_BruisAttack
+ * Based on: linuxdoom-1.10/p_enemy.c : A_TroopAttack, A_SargAttack, A_BruisAttack
  */
 function rollMeleeDamage(enemyType) {
     switch (enemyType) {
-        case 3001: return (Math.floor(Math.random() * 8) + 1) * 3;   // Imp: 3–24
+        case 3001: return (Math.floor(Math.random() * 8) + 1) * 3;   // Imp: 3-24
         case 3002:
-        case 58:   return (Math.floor(Math.random() * 10) + 1) * 4;  // Demon/Spectre: 4–40
-        case 3003: return (Math.floor(Math.random() * 8) + 1) * 10;  // Baron: 10–80
+        case 58:   return (Math.floor(Math.random() * 10) + 1) * 4;  // Demon/Spectre: 4-40
+        case 3003: return (Math.floor(Math.random() * 8) + 1) * 10;  // Baron: 10-80
         default:   return 0;
     }
 }
@@ -178,7 +178,7 @@ function pickMoveDirection(enemy, targetX, targetY) {
         }
     }
 
-    // Step 6: Last resort — try turnaround
+    // Step 6: Last resort : try turnaround
     if (turnaround !== DI_NODIR && canWalkDir(enemy, turnaround)) {
         commitDirection(enemy, turnaround);
         return;
@@ -192,7 +192,7 @@ function pickMoveDirection(enemy, targetX, targetY) {
  * Commits a chosen direction and sets the move timer based on DOOM's movecount.
  * movecount = random(0..15), which corresponds to that many A_Chase calls before
  * the next direction pick. Duration = movecount × chaseTics / 35 seconds.
- * Based on: linuxdoom-1.10/p_enemy.c:P_TryWalk() — movecount = P_Random()&15
+ * Based on: linuxdoom-1.10/p_enemy.c:P_TryWalk() : movecount = P_Random()&15
  */
 function commitDirection(enemy, dir) {
     enemy.ai.moveDir = dir;
@@ -218,7 +218,7 @@ function moveEnemyToward(enemy, targetX, targetY, deltaTime) {
     if (distSqToTarget <= MELEE_RANGE * MELEE_RANGE) return;
 
     // Count down the move timer; pick a new direction when it expires
-    // Based on: A_Chase() — if (--actor->movecount < 0 || !P_Move(actor)) P_NewChaseDir(actor);
+    // Based on: A_Chase() : if (--actor->movecount < 0 || !P_Move(actor)) P_NewChaseDir(actor);
     enemy.ai.moveTimer = (enemy.ai.moveTimer ?? 0) - deltaTime;
     if (enemy.ai.moveTimer <= 0 || enemy.ai.moveDir === undefined || enemy.ai.moveDir === DI_NODIR) {
         pickMoveDirection(enemy, targetX, targetY);
@@ -246,7 +246,7 @@ function moveEnemyToward(enemy, targetX, targetY, deltaTime) {
     } else if (canMoveTo(enemy.x, newY, enemy.ai.radius, enemyFloorHeight, MAX_STEP_HEIGHT, enemy)) {
         enemy.y = newY;
     } else {
-        // Fully blocked — force direction re-evaluation
+        // Fully blocked : force direction re-evaluation
         pickMoveDirection(enemy, targetX, targetY);
     }
 
@@ -280,14 +280,14 @@ function updateEnemyPosition(thingIndex, enemy) {
  * reverts to targeting the player and resets threshold.
  *
  * Based on: linuxdoom-1.10/p_enemy.c:A_Chase() lines ~470-490
- * Accuracy: Exact — same "target dead → threshold=0 → P_LookForPlayers" flow,
+ * Accuracy: Exact : same "target dead → threshold=0 → P_LookForPlayers" flow,
  * except P_LookForPlayers always finds the single player in our single-player game.
  */
 function resolveTarget(enemy, deltaTime) {
     const enemyAI = enemy.ai;
 
     if (enemyAI.target !== 'player') {
-        // Infighting target — check if it's still alive
+        // Infighting target : check if it's still alive
         if (enemyAI.target.collected || enemyAI.target.hp <= 0) {
             // Target killed: revert to chasing the player
             enemyAI.target = 'player';
@@ -331,7 +331,7 @@ function updateSingleEnemy(thingIndex, enemy, deltaTime, currentTime) {
             if (enemyAI.losTimer >= LINE_OF_SIGHT_CHECK_INTERVAL) {
                 enemyAI.losTimer = 0;
                 // Wake up if: player visible within sight range, OR sector heard gunfire
-                // Based on: linuxdoom-1.10/p_enemy.c:A_Look() — checks soundtarget first,
+                // Based on: linuxdoom-1.10/p_enemy.c:A_Look() : checks soundtarget first,
                 // then checks line of sight within alldirections range
                 let shouldWake = false;
                 if (distSqToTarget < enemyAI.sightRange * enemyAI.sightRange && hasLineOfSight(enemy.x, enemy.y, targetPos.x, targetPos.y)) {
@@ -373,7 +373,7 @@ function updateSingleEnemy(thingIndex, enemy, deltaTime, currentTime) {
             }
 
             // Attack decision: DOOM checks melee first, then ranged.
-            // Based on: linuxdoom-1.10/p_enemy.c:A_Chase() lines 405–440
+            // Based on: linuxdoom-1.10/p_enemy.c:A_Chase() lines 405-440
             if ((currentTime - enemyAI.lastAttack) > enemyAI.cooldown * 1000) {
                 if (debug.noEnemyAttack && enemyAI.target === 'player') break;
 
@@ -454,7 +454,7 @@ function updateSingleEnemy(thingIndex, enemy, deltaTime, currentTime) {
 /**
  * Main per-frame update for all enemies. Iterates all thing elements, skipping
  * dead/collected things, non-enemies, and enemies beyond the maximum render
- * distance (performance optimization — distant enemies are not visible and
+ * distance (performance optimization : distant enemies are not visible and
  * don't need AI updates). For each active nearby enemy, runs AI state updates
  * and sprite rotation calculations.
  */

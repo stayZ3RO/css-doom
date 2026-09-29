@@ -1,5 +1,5 @@
 /**
- * Weapon element rendering — switching animation, fire animation, sprite swaps.
+ * Weapon element rendering : switching animation, fire animation, sprite swaps.
  */
 
 import { dom } from './dom.js';

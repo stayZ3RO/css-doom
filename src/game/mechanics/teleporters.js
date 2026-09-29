@@ -5,7 +5,7 @@
  * thing (type 14) in the target sector.
  *
  * Based on: linuxdoom-1.10/p_telept.c:EV_Teleport()
- * Accuracy: Approximation — same walk-over trigger + destination lookup, using
+ * Accuracy: Approximation : same walk-over trigger + destination lookup, using
  * line-crossing detection matching DOOM's original behaviour.
  *
  * When the player crosses a teleporter linedef:
@@ -77,7 +77,7 @@ export function checkTeleporters() {
             state.playerZ = state.floorHeight + EYE_HEIGHT;
 
             // Spawn teleport fog at departure and arrival
-            // Based on: linuxdoom-1.10/p_telept.c — spawns MT_TFOG at both ends
+            // Based on: linuxdoom-1.10/p_telept.c : spawns MT_TFOG at both ends
             renderer.createTeleportFog(departX, departZ, departY);
             renderer.createTeleportFog(state.playerX, state.floorHeight, state.playerY);
             renderer.triggerFlash('teleport-flash');

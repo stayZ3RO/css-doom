@@ -1,5 +1,5 @@
 /**
- * Enemy combat — hitscan attacks, damage handling, and barrel explosions.
+ * Enemy combat : hitscan attacks, damage handling, and barrel explosions.
  */
 
 import {
@@ -25,7 +25,7 @@ import * as renderer from '../../renderer/index.js';
  * Performs an enemy hitscan attack (used by Zombieman and Shotgun Guy).
  *
  * Based on: linuxdoom-1.10/p_enemy.c:A_PosAttack() and A_SPosAttack()
- * Accuracy: Approximation — uses the same angular spread formula and damage
+ * Accuracy: Approximation : uses the same angular spread formula and damage
  * rolls, but since we don't trace individual rays through the 2D map, we
  * approximate hit/miss by checking if the spread angle is within the angular
  * size of the player at the given distance.
@@ -113,7 +113,7 @@ export function enemyHitscanAttackEnemy(attacker, attackerAI) {
  * Distance-based attack probability check for ranged enemies.
  *
  * Based on: linuxdoom-1.10/p_enemy.c:P_CheckMissileRange()
- * Accuracy: Approximation — uses the same distance-to-probability curve but
+ * Accuracy: Approximation : uses the same distance-to-probability curve but
  * without DOOM's fixed-point arithmetic or monster-specific overrides (Vile,
  * Revenant, Cyberdemon, Spider Mastermind).
  *
@@ -132,7 +132,7 @@ export function checkMissileRange(enemy, distanceToPlayer) {
         adjustedDistance -= 128;
     }
 
-    // Clamp to [0, 200] — beyond 200, probability of NOT attacking plateaus
+    // Clamp to [0, 200] : beyond 200, probability of NOT attacking plateaus
     adjustedDistance = Math.max(0, Math.min(200, adjustedDistance));
 
     // Random 0-255; if random < distance, enemy does NOT attack this tick.
@@ -181,7 +181,7 @@ function barrelExplosion(barrel) {
 
         // Barrel explosions are sourced from 'player' since only player actions
         // can currently trigger them (shooting a barrel). This means barrel splash
-        // damage won't trigger infighting — matching original DOOM where barrels
+        // damage won't trigger infighting : matching original DOOM where barrels
         // have no "source" monster and don't cause retargeting.
         damageEnemy(thing, BARREL_EXPLOSION_DAMAGE - dist, 'player');
     }
@@ -196,13 +196,13 @@ function barrelExplosion(barrel) {
  * and infighting retarget logic.
  *
  * The `source` parameter identifies who dealt the damage:
- * - 'player' — the player fired a weapon or caused a barrel explosion
- * - an enemy entry object — another enemy's projectile or hitscan hit this target
- * - null — environmental damage (no retarget)
+ * - 'player' : the player fired a weapon or caused a barrel explosion
+ * - an enemy entry object : another enemy's projectile or hitscan hit this target
+ * - null : environmental damage (no retarget)
  *
  * Infighting retarget logic:
  * Based on: linuxdoom-1.10/p_inter.c:P_DamageMobj() lines ~730-745
- * Accuracy: Exact — same threshold check, same retarget behavior.
+ * Accuracy: Exact : same threshold check, same retarget behavior.
  * No same-species check: any enemy type can fight any other (matching original DOOM).
  *
  * When a monster damages another monster, the target retargets to the attacker
@@ -237,7 +237,7 @@ export function damageEnemy(target, damage, source) {
             }
         }
     } else {
-        // Target survived — play pain sound (barrels have no pain sound)
+        // Target survived : play pain sound (barrels have no pain sound)
         if (target.type !== 2035) {
             playSound('DSPOPAIN');
         }
@@ -246,7 +246,7 @@ export function damageEnemy(target, damage, source) {
             // Pain chance check: each enemy type has a probability of entering
             // the pain state when damaged (0-255 scale, checked against P_Random).
             // Based on: linuxdoom-1.10/p_inter.c:P_DamageMobj() lines ~680-685
-            // Accuracy: Exact — same painchance threshold check.
+            // Accuracy: Exact : same painchance threshold check.
             if (Math.floor(Math.random() * 256) < target.ai.painChance) {
                 setEnemyState(thingIndex, target, 'pain');
             }

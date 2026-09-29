@@ -23,7 +23,7 @@ export const state = {
     floorHeight: 0,
 
     // ── Player stats & combat ─────────────────────────────────────────
-    // Current health, armor, and ammo counts — displayed in the HUD
+    // Current health, armor, and ammo counts : displayed in the HUD
     // and modified by pickups, damage, and weapon fire.
     health: 100,
     armor: 0,
@@ -45,9 +45,9 @@ export const state = {
     // Accumulates time spent standing on a damaging sector (e.g. nukage).
     // Damage is applied once per second, then the timer resets.
     sectorDamageTimer: 0,
-    // Collected key cards — set of color strings ('blue', 'yellow', 'red')
+    // Collected key cards : set of color strings ('blue', 'yellow', 'red')
     collectedKeys: new Set(),
-    // Active powerups — each key is a powerup name, value is remaining duration
+    // Active powerups : each key is a powerup name, value is remaining duration
     // in seconds. Based on: linuxdoom-1.10/d_player.h:player_t.powers[]
     powerups: {},
 

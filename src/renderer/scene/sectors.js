@@ -32,7 +32,7 @@ function applyLightEffect(element, specialType) {
 }
 
 /**
- * Converts a DOOM sector light level (0–255) to a CSS --light value (0–1).
+ * Converts a DOOM sector light level (0-255) to a CSS --light value (0-1).
  * Based on DOOM's R_InitLightTables: lightnum = lightLevel/16 selects from
  * 32 colormaps. LIGHT_DISTANCE_OFFSET compensates for DOOM's scalelight
  * close-range brightening effect.
@@ -65,7 +65,7 @@ export function buildSectorContainers() {
     }
 }
 
-/** Converts a DOOM sector's light level to a CSS --light value (0–1). */
+/** Converts a DOOM sector's light level to a CSS --light value (0-1). */
 export function getSectorLight(sectorIndex) {
     const sectorData = mapData.sectors?.[sectorIndex];
     if (!sectorData) return 1;

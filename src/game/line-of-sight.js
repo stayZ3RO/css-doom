@@ -30,7 +30,7 @@ export function hasLineOfSight(fromX, fromY, toX, toY) {
     const minX = Math.min(fromX, toX), maxX = Math.max(fromX, toX);
     const minY = Math.min(fromY, toY), maxY = Math.max(fromY, toY);
 
-    // Check one-sided solid walls and closed doors — these always block.
+    // Check one-sided solid walls and closed doors : these always block.
     // Two-sided walls (upper, lower, middle) are skipped here; their openings
     // are handled by the 3D sight-cone check against sightLines below.
     let wallBlocked = false;
@@ -46,7 +46,7 @@ export function hasLineOfSight(fromX, fromY, toX, toY) {
     if (wallBlocked) return false;
 
     // 3D sight cone check across two-sided linedefs
-    // Based on: linuxdoom-1.10/p_sight.c — sightzstart, topslope, bottomslope
+    // Based on: linuxdoom-1.10/p_sight.c : sightzstart, topslope, bottomslope
     const fromZ = getFloorHeightAt(fromX, fromY) + EYE_HEIGHT;
     const toZ = getFloorHeightAt(toX, toY) + EYE_HEIGHT;
     let topSlope = (toZ + EYE_HEIGHT) - fromZ;    // top of target
@@ -86,7 +86,7 @@ export function hasLineOfSight(fromX, fromY, toX, toY) {
 
         if (openBottom >= openTop) { sightBlocked = true; return false; }
 
-        // Narrow the sight cone — slopes are relative to fromZ, scaled by fraction
+        // Narrow the sight cone : slopes are relative to fromZ, scaled by fraction
         if (openBottom > fromZ) {
             const slope = (openBottom - fromZ) / t;
             if (slope > bottomSlope) bottomSlope = slope;

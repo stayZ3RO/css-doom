@@ -24,7 +24,7 @@ import { forEachWallInAABB, forEachSectorAt } from './spatial-grid.js';
  * If both centres are on the same side, the player is moving along (or away
  * from) the linedef and should not be blocked.
  *
- * Based on: linuxdoom-1.10/p_map.c — PIT_CheckLine only rejects moves that
+ * Based on: linuxdoom-1.10/p_map.c : PIT_CheckLine only rejects moves that
  * cross from front to back (or vice-versa) of a two-sided linedef.
  */
 function crossesLinedef(newX, newY, _radius, wall) {
@@ -62,7 +62,7 @@ export function canMoveTo(newX, newY, radius = PLAYER_RADIUS, currentFloorHeight
     const playerTop = currentFloorHeight + PLAYER_HEIGHT;
     let blocked = false;
     forEachWallInAABB(newX - radius, newY - radius, newX + radius, newY + radius, wall => {
-        // Door walls are checked first — door linedefs have ML_BLOCKING but
+        // Door walls are checked first : door linedefs have ML_BLOCKING but
         // should be passable when the door is open
         const doorEntry = getDoorEntry(wall);
         if (doorEntry) {
@@ -89,7 +89,7 @@ export function canMoveTo(newX, newY, radius = PLAYER_RADIUS, currentFloorHeight
     if (blocked) return false;
 
     // Check collision against solid things (enemies, barrels, solid decorations).
-    // Based on: linuxdoom-1.10/p_map.c:PIT_CheckThing() — any MF_SOLID thing blocks.
+    // Based on: linuxdoom-1.10/p_map.c:PIT_CheckThing() : any MF_SOLID thing blocks.
     // Dead enemies lose MF_SOLID (P_KillMobj sets collected=true here).
     const things = state.things;
     for (let i = 0, thingCount = things.length; i < thingCount; i++) {
@@ -157,7 +157,7 @@ export function rayHitPoint(originX, originY, directionX, directionY, maxDistanc
             // shots pass through window openings even on ML_BLOCKING linedefs.
             // One-sided solid walls and closed doors always block.
             if (wall.isUpperWall || wall.isLowerWall || wall.isMiddleWall) {
-                // Door face walls (upper walls) slide up when open — don't
+                // Door face walls (upper walls) slide up when open : don't
                 // block rays through the opening at eye level.
                 if (wall.isUpperWall && !isDoorClosed(wall)) {
                     const door = getDoorEntry(wall);

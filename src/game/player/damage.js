@@ -23,7 +23,7 @@ import { clearWeaponSlots } from '../../renderer/hud.js';
 
 /**
  * Based on: linuxdoom-1.10/p_inter.c:P_DamageMobj() lines 692-704
- * Accuracy: Exact — same integer division, same absorption ratios, same armor depletion logic.
+ * Accuracy: Exact : same integer division, same absorption ratios, same armor depletion logic.
  *
  * Green armor (armorType 1) absorbs damage/3; blue armor (armorType 2) absorbs damage/2.
  * If remaining armor points are less than or equal to the absorbed amount, the armor is
@@ -33,7 +33,7 @@ export function damagePlayer(damageAmount) {
     if (state.isDead) return;
     if (state.powerups.invulnerability) return;
 
-    // Based on: linuxdoom-1.10/p_inter.c:P_DamageMobj() — skill 1 halves damage
+    // Based on: linuxdoom-1.10/p_inter.c:P_DamageMobj() : skill 1 halves damage
     if (state.skillLevel === 1) damageAmount >>= 1;
 
     // Armor absorption depends on armor type: green (1) = 1/3, blue (2) = 1/2
@@ -83,7 +83,7 @@ export function damagePlayer(damageAmount) {
  *
  * When multiple sectors overlap at a point (e.g. a damaging floor beneath a
  * raised platform), the damage from the sector with the highest effective
- * floor is used — matching the sector the player would actually be standing on.
+ * floor is used : matching the sector the player would actually be standing on.
  */
 function getSectorDamageAt(x, y) {
     let highestFloor = -Infinity;
@@ -170,7 +170,7 @@ function clearSceneState() {
     renderer.setPlayerDead(false);
 }
 
-// Level transition — keep inventory, clear keys (keys are per-level)
+// Level transition : keep inventory, clear keys (keys are per-level)
 export function transitionToLevel() {
     clearSceneState();
     state.collectedKeys.clear();
@@ -178,7 +178,7 @@ export function transitionToLevel() {
     equipWeapon(state.currentWeapon);
 }
 
-// Full reset — new game or respawn after death
+// Full reset : new game or respawn after death
 export function resetGameState() {
     clearSceneState();
     state.health = 100;

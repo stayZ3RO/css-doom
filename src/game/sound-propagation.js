@@ -1,12 +1,12 @@
 /**
- * Sound propagation — sector-based BFS flood when the player fires.
+ * Sound propagation : sector-based BFS flood when the player fires.
  *
  * Based on: linuxdoom-1.10/p_enemy.c:P_RecursiveSound()
  * When the player fires a weapon, sound floods outward through connected
  * sectors via two-sided linedefs. Enemies in reached sectors wake up.
  *
  * Sound is blocked by linedefs with ML_SOUNDBLOCK (flag 0x40). Sound can
- * pass through ONE sound-blocking line, but stops at a second — matching
+ * pass through ONE sound-blocking line, but stops at a second : matching
  * DOOM's `soundtraversed` counter (0 = unvisited, 1 = reached openly,
  * 2 = reached through one block).
  */
@@ -130,7 +130,7 @@ export function propagateSound() {
             const { sector: neighborSector, soundBlock, linedefIndex } = neighbors[i];
 
             // Check if linedef is passable (closed doors have zero opening)
-            // Based on: linuxdoom-1.10/p_enemy.c:P_RecursiveSound() — skips if openrange <= 0
+            // Based on: linuxdoom-1.10/p_enemy.c:P_RecursiveSound() : skips if openrange <= 0
             if (getLineOpening(linedefIndex) <= 0) continue;
 
             const newBlocks = blocks + (soundBlock ? 1 : 0);

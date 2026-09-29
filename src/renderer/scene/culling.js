@@ -16,7 +16,7 @@ import { sceneState } from '../dom.js';
 import { MAX_RENDER_DISTANCE } from '../../game/constants.js';
 import { spectatorActive } from '../../ui/spectator.js';
 
-// Culling flags — toggled by the debug menu
+// Culling flags : toggled by the debug menu
 export const culling = {
     frustum: true,
     distance: true,
@@ -24,7 +24,7 @@ export const culling = {
     sky: true,
 };
 
-// Stats updated each frame — per-step counts track how many elements
+// Stats updated each frame : per-step counts track how many elements
 // survived after each culling pass (in processing order)
 export const cullingStats = {
     total: 0,
@@ -69,7 +69,7 @@ function wallInFrustum(wall, playerX, playerY, sinAngle, cosAngle, halfFov) {
     const endRelX = wall.end.x - playerX;
     const endRelY = wall.end.y - playerY;
 
-    // Never cull walls the player is close to — when up close, endpoints
+    // Never cull walls the player is close to : when up close, endpoints
     // can all land behind the camera while the wall surface is still visible.
     const dx = endRelX - startRelX;
     const dy = endRelY - startRelY;
@@ -96,7 +96,7 @@ function surfaceInFrustum(element, playerX, playerY, sinAngle, cosAngle, halfFov
     const minY = element._minY - playerY;
     const maxY = element._maxY - playerY;
 
-    // Camera is inside the bounding box — always visible
+    // Camera is inside the bounding box : always visible
     if (minX <= 0 && maxX >= 0 && minY <= 0 && maxY >= 0) return true;
 
     // Any corner or center in frustum
@@ -124,7 +124,7 @@ function surfaceInFrustum(element, playerX, playerY, sinAngle, cosAngle, halfFov
 
 /**
  * Tests whether a ray from (ox,oy) in direction (dx,dy) intersects an AABB.
- * Uses the slab method — only checks forward hits (t > 0).
+ * Uses the slab method : only checks forward hits (t > 0).
  */
 function rayIntersectsAABB(ox, oy, dx, dy, minX, minY, maxX, maxY) {
     let tmin = 0;
@@ -174,7 +174,7 @@ function wallFacesCamera(wallData, wallAngle, midX, midY, playerX, playerY) {
 // point (along the ray from the player) to be culled.
 const SKY_CULL_MARGIN = 128;
 
-// Elements in sky sectors closer than this distance are never sky-culled —
+// Elements in sky sectors closer than this distance are never sky-culled :
 // they are visible perimeter walls of a nearby outdoor area.
 const SKY_EXEMPT_DISTANCE_SQ = 1500 * 1500;
 
@@ -185,7 +185,7 @@ const SKY_EXEMPT_DISTANCE_SQ = 1500 * 1500;
  * point, the element is culled.
  */
 function behindSkyWall(x, y, z, sectorIndex, playerX, playerY, skyPlanes) {
-    // Nearby elements in sky sectors are visible outdoor perimeter — skip culling.
+    // Nearby elements in sky sectors are visible outdoor perimeter : skip culling.
     if (sceneState.skyGroupOf?.has(sectorIndex)) {
         const dx2 = x - playerX, dy2 = y - playerY;
         if (dx2 * dx2 + dy2 * dy2 < SKY_EXEMPT_DISTANCE_SQ) return false;
@@ -198,11 +198,11 @@ function behindSkyWall(x, y, z, sectorIndex, playerX, playerY, skyPlanes) {
         const plane = skyPlanes[i];
 
         // Don't cull elements in the same connected sky group as this sky
-        // wall — they form the visible perimeter of the same outdoor area.
+        // wall : they form the visible perimeter of the same outdoor area.
         // Elements in unrelated sky groups should still be culled.
         if (plane.skyGroup !== undefined && sceneState.skyGroupOf?.get(sectorIndex) === plane.skyGroup) continue;
 
-        // Only cull elements above the sky wall's floor — below that,
+        // Only cull elements above the sky wall's floor : below that,
         // the element could be visible through a window or doorway.
         if (z < plane.floorZ) continue;
 
@@ -358,7 +358,7 @@ export function updateCulling() {
         const el = surfaces[i];
         total++;
 
-        // In spectator mode, CSS controls ceiling visibility — skip culling
+        // In spectator mode, CSS controls ceiling visibility : skip culling
         if (spectatorActive && el.className === 'ceiling') continue;
 
         if (!anyCulling) {
@@ -396,7 +396,7 @@ export function updateCulling() {
         const t = things[i];
         total++;
 
-        // Skip dead/collected things — but ensure visibility is restored
+        // Skip dead/collected things : but ensure visibility is restored
         // so death/explosion animations can play even if the thing was
         // previously culled offscreen.
         const gameEntry = t.gameId !== undefined ? state.things[t.gameId] : null;

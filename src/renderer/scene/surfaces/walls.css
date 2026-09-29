@@ -1,4 +1,4 @@
-/* Walls — geometry computed from raw DOOM vertex + sector data */
+/* Walls : geometry computed from raw DOOM vertex + sector data */
 
 .wall {
     /* Compute wall vector from raw DOOM vertices */
@@ -66,7 +66,7 @@ body.scroll-textures .wall.scroll-texture {
     background-position-y: calc(100% + var(--texture-offset-y, 0) * -1px);
 }
 
-/* Sky walls — invisible occluders above wall tops in sky-ceiling sectors.
+/* Sky walls : invisible occluders above wall tops in sky-ceiling sectors.
    Hidden by default; shown as hotpink via the debug toggle. */
 .sky-wall {
     display: none;

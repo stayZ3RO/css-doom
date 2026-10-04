@@ -1,50 +1,14 @@
 # Deployment Notes
 
-## Hosting Model
+## Current deployment
 
-This project is designed as a static site.
+GitHub Pages serves the static Vite build at https://stayz3ro.github.io/css-doom/. The workflow in .github/workflows/deploy.yml runs on main, installs locked dependencies, builds with `--base=/css-doom/`, uploads `dist`, and deploys the Pages artifact.
 
-That means it can run with:
+## Local check
 
-- HTML
-- CSS
-- JavaScript
-- Browser assets
+```sh
+npm ci
+npm run build -- --base=/css-doom/
+```
 
-It does not require:
-
-- A backend server
-- A database
-- A VM
-- Docker
-- Proxmox
-- Portainer
-
-## Deployment Flow
-
-Local project files move into Git commits, then into the GitHub repository, then into GitHub Pages or Cloudflare Pages.
-
-## Why Static Hosting Works
-
-The browser does the work. The hosting provider only needs to serve the static files.
-
-## Planned Hosting Options
-
-### GitHub Pages
-
-Best for the first deployment because it is built into GitHub.
-
-### Cloudflare Pages
-
-Best later when using a custom domain or subdomain.
-
-Example future subdomain:
-
-doom.stayz3ro.dev
-
-## Lessons Learned
-
-- Static sites are ideal for frontend-only experiments.
-- Not every web project needs a VM or backend.
-- GitHub can be used for both version control and deployment.
-- Clean documentation makes a small project more valuable for a portfolio.
+No backend, database, VM, Docker container, or custom domain is required for this deployment.

@@ -2,7 +2,7 @@
  * Audio playback using the Web Audio API.
  *
  * Sounds are fetched and decoded into AudioBuffers on first use, then cached.
- * Playing a sound creates a lightweight AudioBufferSourceNode : no heavy media
+ * Playing a sound creates a lightweight AudioBufferSourceNode: no heavy media
  * pipeline initialization, so playback is near-instant even on iOS.
  *
  * iOS Safari requires the AudioContext to be created, resumed, AND a buffer

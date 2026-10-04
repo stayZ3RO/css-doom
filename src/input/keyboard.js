@@ -32,7 +32,7 @@ import { loadMap } from '../shared/maps.js';
 import { isMenuOpen, toggleMenu } from '../ui/menu.js';
 import { registerInputProvider } from './index.js';
 
-// Internal key state : not exposed to the game layer
+// Internal key state: not exposed to the game layer
 const keys = {
     up: false, down: false, left: false, right: false,
     strafeLeft: false, strafeRight: false, run: false, strafe: false,
@@ -96,7 +96,7 @@ export function initKeyboardInput() {
                 const weaponSlot = parseInt(event.code[5]);
                 if (WEAPONS[weaponSlot]) equipWeapon(weaponSlot);
                 break;
-            // Unrecognized key : return early without calling preventDefault
+            // Unrecognized key: return early without calling preventDefault
             default: return;
         }
         event.preventDefault();

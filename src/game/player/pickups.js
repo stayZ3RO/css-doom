@@ -52,13 +52,13 @@ export function checkPickups() {
             if (effect) {
                 if (effect.statType === 'health') {
                     // Health Bonus (2014) and Soul Sphere (2013) can push health above 100, up to 200
-                    // Based on: linuxdoom-1.10/p_inter.c:P_GiveBody() : bonuses cap at 200
+                    // Based on: linuxdoom-1.10/p_inter.c:P_GiveBody(): bonuses cap at 200
                     const healthCap = (thing.type === 2013 || thing.type === 2014) ? 200 : MAX_HEALTH;
                     if (state.health >= healthCap) continue;
                     state.health = Math.min(healthCap, state.health + effect.amount);
                 } else if (effect.statType === 'armor') {
                     if (effect.armorClass && effect.armorClass > 0) {
-                        // Green/Blue Armor: P_GiveArmor : skip if current armor >= armorClass * 100
+                        // Green/Blue Armor: P_GiveArmor: skip if current armor >= armorClass * 100
                         // Green (class 1): skip if armor >= 100
                         // Blue (class 2): skip if armor >= 200
                         if (state.armor >= effect.armorClass * 100) continue;
@@ -74,7 +74,7 @@ export function checkPickups() {
                 } else if (effect.statType === 'ammo') {
                     const ammoType = effect.ammoType;
                     if (state.ammo[ammoType] >= state.maxAmmo[ammoType]) continue;
-                    // Based on: linuxdoom-1.10/p_inter.c : skill 1 & 5 double ammo pickups
+                    // Based on: linuxdoom-1.10/p_inter.c: skill 1 & 5 double ammo pickups
                     const amount = (state.skillLevel === 1 || state.skillLevel === 5)
                         ? effect.amount * 2 : effect.amount;
                     state.ammo[ammoType] = Math.min(state.maxAmmo[ammoType], state.ammo[ammoType] + amount);
@@ -101,7 +101,7 @@ export function checkPickups() {
                 }
             }
 
-            // Based on: linuxdoom-1.10/p_inter.c:P_TouchSpecialThing() : backpack
+            // Based on: linuxdoom-1.10/p_inter.c:P_TouchSpecialThing(): backpack
             // Doubles max ammo capacity and gives one clip of each ammo type.
             if (thing.type === 8) {
                 if (!state.hasBackpack) {
@@ -138,17 +138,17 @@ function triggerPickupFlash() {
 // Powerups
 // ============================================================================
 //
-// Based on: linuxdoom-1.10/p_user.c:P_PlayerThink() : powerup countdown logic.
+// Based on: linuxdoom-1.10/p_user.c:P_PlayerThink(): powerup countdown logic.
 // Each powerup has a remaining duration in seconds. When collected, the
 // duration is set (or refreshed) to the defined value. Each frame,
 // updatePowerups() decrements the timers and removes expired effects.
 //
 // Effects:
-//   invulnerability : blocks all damage, green-tinted palette
-//   berserk         : 10× melee damage, +100 health, auto-switch to fist, lasts entire level
-//   invisibility    : enemies have much wider spread (miss more often)
-//   radsuit         : immune to sector (nukage/slime) damage
-//   lightamp        : all sectors rendered at full brightness
+//   invulnerability: blocks all damage, green-tinted palette
+//   berserk: 10× melee damage, +100 health, auto-switch to fist, lasts entire level
+//   invisibility: enemies have much wider spread (miss more often)
+//   radsuit: immune to sector (nukage/slime) damage
+//   lightamp: all sectors rendered at full brightness
 // ============================================================================
 
 /**

@@ -5,7 +5,7 @@
  * the player when caught underneath.
  *
  * Based on: linuxdoom-1.10/p_ceilng.c:EV_DoCeiling(), T_MoveCeiling()
- * Accuracy: Approximation : same raise-then-crush cycle, but we use linear
+ * Accuracy: Approximation: same raise-then-crush cycle, but we use linear
  * interpolation instead of DOOM's fixed-point per-tic movement. Damage is
  * applied once per second while crushed (DOOM applies 10 damage per tic-cycle).
  *
@@ -27,7 +27,7 @@ import * as renderer from '../../renderer/index.js';
 
 const CRUSHER_SLOW_SPEED = 32;  // Map units per second (DOOM: 1 unit per tic at 35fps ≈ 35/s, we use 32)
 const CRUSHER_FAST_SPEED = 64;  // Fast crushers move at double speed
-// Based on: linuxdoom-1.10/p_spec.c:T_MoveCeiling() : 10 damage every 4 tics
+// Based on: linuxdoom-1.10/p_spec.c:T_MoveCeiling(): 10 damage every 4 tics
 const CRUSHER_DAMAGE = 10;
 const CRUSHER_DAMAGE_INTERVAL = 4 / 35; // 4 tics ≈ 0.114 seconds
 

@@ -26,7 +26,7 @@ import { mapData } from '../../shared/maps.js';
 import { playSound } from '../../audio/audio.js';
 import * as renderer from '../../renderer/index.js';
 
-const LIFT_MOVE_DURATION = 1.0; // seconds : must match renderer animation duration
+const LIFT_MOVE_DURATION = 1.0; // seconds: must match renderer animation duration
 
 // Cached flat array of { sectorIndex, entry } for zero-alloc iteration in the hot path
 let liftEntries = [];

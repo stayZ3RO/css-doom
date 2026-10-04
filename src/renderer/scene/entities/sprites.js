@@ -1,5 +1,5 @@
 /**
- * Sprite rendering : DOM updates for enemy/thing sprite state, position, and rotation.
+ * Sprite rendering: DOM updates for enemy/thing sprite state, position, and rotation.
  *
  * Owns all sprite sheet knowledge: layout tables, rotation-to-frame mapping,
  * attack/death/walk state transitions. Game code provides direction and state
@@ -45,7 +45,7 @@ function setSpriteState(sprite, newState) {
 }
 
 // ============================================================================
-// Enemy sprite : high-level API called by game code via thing index
+// Enemy sprite: high-level API called by game code via thing index
 // ============================================================================
 
 /**

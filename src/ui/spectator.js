@@ -1,11 +1,11 @@
 /**
- * Spectator Mode : top-down map view and follow-behind camera.
+ * Spectator Mode: top-down map view and follow-behind camera.
  *
  * Camera transforms are defined in CSS (spectator.css) and driven by custom
  * properties. JavaScript only manages interactive state (pan, zoom, rotate)
- * and sets custom properties : no transform string composition.
+ * and sets custom properties: no transform string composition.
  *
- * Follow mode needs NO JS animation loop : CSS computes the camera position
+ * Follow mode needs NO JS animation loop: CSS computes the camera position
  * from --player-* properties using sin()/cos(). Only zoom (R/F keys) updates
  * --follow-height.
  *
@@ -69,7 +69,7 @@ if (spectatorButton) {
     spectatorButton.addEventListener('click', () => window.spectate());
 }
 
-// Player sprite rotation : same system as enemies (--heading/--mirror on sprite sheet)
+// Player sprite rotation: same system as enemies (--heading/--mirror on sprite sheet)
 // Walk animation is handled by CSS @keyframes sprite-cycle
 let lastPlayerHeading = -1;
 let lastPlayerMirror = -1;
@@ -104,7 +104,7 @@ function updatePlayerSprite(cameraAngle, forceBack = false) {
         sprite.style.setProperty('--mirror', mirrorScale);
     }
 
-    // Set spectator angle for CSS billboard : CSS handles the actual transform
+    // Set spectator angle for CSS billboard: CSS handles the actual transform
     dom.viewport.style.setProperty('--spectator-angle', cameraAngle);
 }
 

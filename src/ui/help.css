@@ -1,4 +1,4 @@
-/* Fullscreen button : top right, next to spectator button */
+/* Fullscreen button: top right, next to spectator button */
 
 #fullscreen-button {
     position: fixed;
@@ -23,7 +23,7 @@
     &:hover img { filter: invert(1); }
 }
 
-/* Help button : top right, next to fullscreen button */
+/* Help button: top right, next to fullscreen button */
 
 #help-button {
     position: fixed;

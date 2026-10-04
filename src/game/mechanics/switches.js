@@ -33,7 +33,7 @@ import * as renderer from '../../renderer/index.js';
 
 export function tryUseSwitch() {
     // Cast a forward ray from the player's position along their facing direction.
-    // The check-point is placed at half USE_RANGE ahead : the actual distance
+    // The check-point is placed at half USE_RANGE ahead: the actual distance
     // threshold is USE_RANGE, so this samples the midpoint of the interaction zone.
     const forwardX = -Math.sin(state.playerAngle);
     const forwardY = Math.cos(state.playerAngle);

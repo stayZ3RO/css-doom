@@ -1,5 +1,5 @@
 /**
- * Lift rendering : scene construction and visual state updates.
+ * Lift rendering: scene construction and visual state updates.
  */
 
 import { dom, sceneState } from '../../dom.js';

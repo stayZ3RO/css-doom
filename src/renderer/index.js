@@ -1,5 +1,5 @@
 /**
- * Renderer public API : the single entry point for the game layer.
+ * Renderer public API: the single entry point for the game layer.
  *
  * Every renderer function that the game layer needs is re-exported here.
  * Game code should never import from renderer sub-modules directly.

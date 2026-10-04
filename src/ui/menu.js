@@ -1,5 +1,5 @@
 /**
- * Menu : level picker and skill selection overlay.
+ * Menu: level picker and skill selection overlay.
  */
 
 import { state } from '../game/state.js';

@@ -1,5 +1,5 @@
 /* ========================================================================
-   Spectator Mode : custom properties for camera control
+   Spectator Mode: custom properties for camera control
    ======================================================================== */
 
 @property --spectator-offset-x {
@@ -92,7 +92,7 @@ body.spectator #weapon {
     transition-delay: 0s;
 }
 
-/* Player container : shared positioning for marker, sprite, and shadow */
+/* Player container: shared positioning for marker, sprite, and shadow */
 #player {
     display: none;
     top: 0; left: 0; width: 0; height: 0;
@@ -129,7 +129,7 @@ body.spectator #player > .marker {
     }
 }
 
-/* Player marker : FOV arc */
+/* Player marker: FOV arc */
 #player > .marker {
     --marker-color: #fff;
 
@@ -165,7 +165,7 @@ body.spectator #player > .marker {
     --marker-color: #ff8800;
 }
 
-/* Player sprite : billboard toward spectator camera */
+/* Player sprite: billboard toward spectator camera */
 #player > .sprite {
     opacity: 0;
     transition: opacity 0.3s ease 0s;
@@ -335,7 +335,7 @@ body.spectator #spectator-button {
     transition: opacity 0.3s;
 }
 
-/* Hide pan/rotate controls in follow mode : camera follows player automatically */
+/* Hide pan/rotate controls in follow mode: camera follows player automatically */
 body.follow-mode #spectator-rotate,
 body.follow-mode #spectator-arrows {
     opacity: 0;

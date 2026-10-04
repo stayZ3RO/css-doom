@@ -17,7 +17,7 @@ export const dom = {
 };
 
 /**
- * Renderer-specific state : arrays of DOM elements representing the 3D scene.
+ * Renderer-specific state: arrays of DOM elements representing the 3D scene.
  * Rebuilt each map load. Game logic should not access these.
  */
 export const sceneState = {
@@ -28,9 +28,9 @@ export const sceneState = {
     doorContainers: new Map(),
     liftContainers: new Map(),
     crusherContainers: new Map(),
-    skyWallPlanes: [],             // Array of { nx, ny, px, py, ax, ay, bx, by } : sky wall occluders
+    skyWallPlanes: [],             // Array of { nx, ny, px, py, ax, ay, bx, by }: sky wall occluders
     skySectors: new Set(),         // Sector indices with sky ceilings
-    skyGroupOf: new Map(),         // Map<sectorIndex, groupId> : connected sky sector groups
+    skyGroupOf: new Map(),         // Map<sectorIndex, groupId>: connected sky sector groups
     thingDom: new Map(),          // Map<thingIndex, { element, sprite }>
     projectileDom: new Map(),     // Map<projectileId, element>
     // CSS perspective distance in pixels. Determines the field of view;

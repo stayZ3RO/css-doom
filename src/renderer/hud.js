@@ -5,7 +5,7 @@
  * maximums) are set as custom properties on the #status container. CSS then
  * inherits these down to the digit elements, which use calc() to derive
  * individual digit sprite offsets. This keeps all per-element rendering in
- * CSS : JavaScript only touches one DOM element per frame.
+ * CSS: JavaScript only touches one DOM element per frame.
  */
 
 import { state } from '../game/state.js';
@@ -14,7 +14,7 @@ import { WEAPONS } from '../game/constants.js';
 
 const AMMO_TYPES = ['bullets', 'shells', 'rockets', 'cells'];
 
-// Previous values : only touch the DOM when something changes
+// Previous values: only touch the DOM when something changes
 let prev = {
     ammo: -1, health: -1, armor: -1, faceRow: -1,
     bullets: -1, shells: -1, rockets: -1, cells: -1,

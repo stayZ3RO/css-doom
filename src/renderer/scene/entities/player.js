@@ -1,5 +1,5 @@
 /**
- * Player entity : construction and visual state.
+ * Player entity: construction and visual state.
  */
 
 import { dom } from '../../dom.js';

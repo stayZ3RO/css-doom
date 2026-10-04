@@ -1,5 +1,5 @@
 /**
- * Switch rendering : visual state toggle.
+ * Switch rendering: visual state toggle.
  */
 
 export function toggleSwitchState(wallId) {

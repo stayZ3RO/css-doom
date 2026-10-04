@@ -22,7 +22,7 @@ export function buildThings() {
     if (!mapData.things) return;
 
     for (const thing of mapData.things) {
-        // Bit 4 = multiplayer only : skip in single player
+        // Bit 4 = multiplayer only: skip in single player
         if (thing.flags & 16) continue;
         // Skill level flags: bit 0 = skill 1-2, bit 1 = skill 3, bit 2 = skill 4-5
         const skillBit = state.skillLevel <= 2 ? 1 : state.skillLevel === 3 ? 2 : 4;
@@ -61,7 +61,7 @@ export function buildThings() {
         appendToSector(thingContainer, sector?.sectorIndex);
 
         if (PICKUPS.has(thing.type) || SHOOTABLE.has(thing.type) || SOLID_THING_RADIUS[thing.type]) {
-            // Game-only data : no DOM references
+            // Game-only data: no DOM references
             const entry = {
                 x: thing.x,
                 y: thing.y,
@@ -71,7 +71,7 @@ export function buildThings() {
             };
 
             // Solid decorations: store collision radius for canMoveTo() checks.
-            // Based on: linuxdoom-1.10/info.c : MF_SOLID decorations block movement.
+            // Based on: linuxdoom-1.10/info.c: MF_SOLID decorations block movement.
             if (SOLID_THING_RADIUS[thing.type] && !SHOOTABLE.has(thing.type)) {
                 entry.solidRadius = SOLID_THING_RADIUS[thing.type];
             }
@@ -91,18 +91,18 @@ export function buildThings() {
                     lastAttack: 0,
                     damageDealt: false,
                     reactionTimer: 0,
-                    // Based on: linuxdoom-1.10/p_mobj.c : MTF_AMBUSH (bit 3) means
+                    // Based on: linuxdoom-1.10/p_mobj.c: MTF_AMBUSH (bit 3) means
                     // the enemy is "deaf" and only wakes from sound with LOS
                     ambush: (thing.flags & 8) !== 0,
                     // Infighting: `target` is 'player' or a reference to another enemy entry.
-                    // `threshold` counts down each AI tick : while > 0 the enemy stays locked
+                    // `threshold` counts down each AI tick: while > 0 the enemy stays locked
                     // on its current target and won't retarget.
                     // Based on: linuxdoom-1.10/p_inter.c:P_DamageMobj() retarget logic
                     target: 'player',
                     threshold: 0,
                     ...aiStats
                 };
-                // Based on: linuxdoom-1.10/g_game.c : nightmare doubles speeds,
+                // Based on: linuxdoom-1.10/g_game.c: nightmare doubles speeds,
                 // halves reaction/attack/pain timings (fastparm)
                 if (state.skillLevel === 5) {
                     entry.ai.speed *= 2;

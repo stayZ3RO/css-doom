@@ -1,32 +1,13 @@
 # Project Notes
 
-## Project Name
+## Purpose
 
-CSS DOOM Static Lab
+I redeployed Niels Leenheer's cssDOOM as a Vite-based static site. The rendering engine, game logic, and CSS techniques are his work. My contribution is the build and GitHub Pages deployment pipeline.
 
-## Goal
+## Current status (2026-10-04)
 
-Deploy a static browser-based DOOM/CSS experiment from GitHub using static hosting.
+- The demo is live at https://stayz3ro.github.io/css-doom/.
+- GitHub Actions builds the site and deploys it to GitHub Pages on main.
+- The project runs in the browser without a backend, VM, or container.
 
-## What This Project Demonstrates
-
-- GitHub repository management
-- Static frontend hosting
-- HTML/CSS/JavaScript project structure
-- Documentation-first project workflow
-- Lightweight deployment without a VM
-
-## Current Status
-
-- Repository created
-- Static site scaffold added
-- Documentation structure added
-- Deployment setup pending
-
-## Next Improvements
-
-- Add real CSS DOOM renderer/source files
-- Add screenshots
-- Deploy with GitHub Pages
-- Add Cloudflare Pages notes
-- Add custom domain later
+The source and build commands are in the root README.

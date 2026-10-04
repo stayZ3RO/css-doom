@@ -10,10 +10,18 @@ The game logic is written in JavaScript using id Software's [open-source release
 
 **[Read the blog post](https://nielsleenheer.com/articles/2026/css-is-doomed/)**
 
+## Run locally
+
+```sh
+npm ci
+npm run dev
+```
+
+For a production build, run `npm run build -- --base=/css-doom/`, the same base path used for GitHub Pages.
 
 ## How it works
 
-We start with the linedefs, sidedefs, and sectors from the DOOM WAD file and construct our scene by creating `<div>` elements placed in 3D space using CSS transforms. But we don't set those properties directly from JavaScript. Instead we set custom properties with the raw DOOM vertex geometry. These values come straight out of the WAD file.
+The renderer starts with the linedefs, sidedefs, and sectors from the DOOM WAD file. It builds a scene from `<div>` elements placed in 3D space with CSS transforms. JavaScript supplies the raw DOOM vertex geometry as custom properties; CSS computes the transforms rather than receiving finished positions.
 
 ```html
 <div class="wall" style="
@@ -46,11 +54,11 @@ CSS calculates the correct width, height and 3D transforms using trigonometry fu
 }
 ```
 
-DOOM's coordinate system doesn't map directly to CSS 3D. DOOM uses a top-down 2D system where Y increases going north. CSS 3D has Y going up and Z going toward the viewer. That's why you see `translate3d(x, -z, -y)`: our custom properties are in DOOM coordinates while the transform needs CSS coordinates.
+DOOM's coordinate system doesn't map directly to CSS 3D. DOOM uses a top-down 2D system where Y increases going north. CSS 3D has Y going up and Z going toward the viewer. That's why the renderer uses `translate3d(x, -z, -y)`: its custom properties are in DOOM coordinates while the transform needs CSS coordinates.
 
 Once the scene is built, a JavaScript game loop tracks the game state: player position, input, collisions, and enemy AI. It recreates the original game's logic in JavaScript.
 
-There is a strict separation between the game loop in JavaScript and the rendering in CSS. JavaScript sets a limited number of CSS custom properties such as `--player-x`, `--player-y`, `--player-z` and `--player-angle` which determine the location of the player in our scene.
+There is a strict separation between the game loop in JavaScript and the rendering in CSS. JavaScript sets a limited number of CSS custom properties such as `--player-x`, `--player-y`, `--player-z` and `--player-angle` which determine the player's location in the scene.
 
 CSS moves the entire world in the opposite direction of the player, since CSS doesn't have a camera:
 
@@ -87,11 +95,11 @@ The entire scene is built with `transform-style: preserve-3d`. Wall dimensions u
 
 ### Animating custom properties with `@property`
 
-Thanks to `@property` we can animate and transition CSS custom properties. This is fundamental to how the rendering works: sector lighting is controlled by a `--light` custom property that inherits down to all elements in a sector and can be animated for flickering effects. The `--player-z` property is registered as a number to enable smooth falling transitions when the player walks off a ledge.
+`@property` lets the renderer animate and transition CSS custom properties. Sector lighting uses a `--light` property that inherits down to all elements in a sector and can be animated for flickering effects. The `--player-z` property is registered as a number to enable smooth falling transitions when the player walks off a ledge.
 
 ### Irregular shapes with `clip-path`
 
-DOOM's floors and ceilings can be any polygon. We use `clip-path` with `polygon()` to clip rectangular divs into the correct shape. For sectors with holes (pillars, platforms), we use `shape()` with the `evenodd` fill rule, which allows percentage-based coordinates and multiple subpaths in a single clip path.
+DOOM's floors and ceilings can be any polygon. The renderer uses `clip-path` with `polygon()` to clip rectangular divs into the correct shape. For sectors with holes (pillars, platforms), it uses `shape()` with the `evenodd` fill rule, which allows percentage-based coordinates and multiple subpaths in a single clip path.
 
 ### Sprite animation with `steps()`
 
@@ -124,7 +132,7 @@ The HUD status bar wraps over multiple rows on narrow screens using `flex-wrap`.
 
 ### Lighting with `filter: brightness()`
 
-DOOM stores a light level per sector. We set it as a `--light` custom property on a sector container element and everything inside inherits it. Flickering lights are keyframe animations on `--light`, made possible by `@property`.
+DOOM stores a light level per sector. The renderer sets it as a `--light` custom property on a sector container element and everything inside inherits it. Flickering lights are keyframe animations on `--light`, made possible by `@property`.
 
 ### Billboarding sprites with `rotateY()`
 
@@ -145,7 +153,7 @@ The Spectre's invisibility effect uses an SVG filter applied via CSS: `feColorMa
 
 The browser's compositor has to handle thousands of 3D-transformed elements. Large maps can overwhelm it; Safari on iOS will crash if the workload is too large. It is impressive that a browser can render this at all, given that it was not built for this workload.
 
-We cull elements that are outside the player's view. The default approach is JavaScript-based: every few frames we check each element's position and hide it if it's behind the player, too far away, or outside the frustum. Sky culling hides geometry that should be occluded by DOOM's sky walls, which the original engine rendered as a 2D hack that we can't replicate in a true 3D scene.
+The renderer culls elements outside the player's view. Its default approach is JavaScript-based: every few frames it checks each element's position and hides it if it is behind the player, too far away, or outside the frustum. Sky culling hides geometry that DOOM's sky walls should occlude. The original engine rendered this as a 2D hack that does not translate directly to a true 3D scene.
 
 There is also an experimental pure-CSS culling implementation that uses a type grinding hack: a paused animation with a computed negative delay that converts a numeric 0/1 into a `visibility` keyword. When CSS `if()` gets wider support, this can be replaced with a clean conditional.
 

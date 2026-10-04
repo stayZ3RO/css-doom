@@ -57,7 +57,7 @@ let automaticFireInterval = null;
  * 1. Checks preconditions: player alive, not already firing, not mid-switch,
  *    weapon exists, and sufficient ammo.
  * 2. Deducts ammo and triggers the fire animation via the renderer.
- * 3. Performs hit detection — hitscan weapons cast instant rays; melee weapons
+ * 3. Performs hit detection: hitscan weapons cast instant rays; melee weapons
  *    check a short-range cone; the rocket launcher spawns a projectile.
  * 4. Alerts nearby idle enemies via sound propagation.
  * 5. For continuous-fire weapons (like the chaingun): starts a repeating
@@ -128,7 +128,7 @@ export function stopAutoFire() {
 }
 
 // ============================================================================
-// Sound Alert — enemies hear gunfire and wake up
+// Sound Alert: enemies hear gunfire and wake up
 // ============================================================================
 
 /**
@@ -151,19 +151,19 @@ function alertNearbyEnemies() {
  * Rolls random weapon damage matching original DOOM formulas.
  *
  * Based on: linuxdoom-1.10/p_pspr.c weapon action functions
- * Accuracy: Exact — same random multiplier ranges and formulas.
+ * Accuracy: Exact: same random multiplier ranges and formulas.
  *
  * 'melee':   (P_Random()%10 + 1) * 2 = 2-20 damage.
- *            Based on: A_Punch() / A_Saw() — p_pspr.c lines ~120, ~170
+ *            Based on: A_Punch() / A_Saw(): p_pspr.c lines ~120, ~170
  * 'hitscan': 5 * (P_Random()%3 + 1) = 5, 10, or 15 damage.
- *            Based on: P_GunShot() — p_map.c line ~800
+ *            Based on: P_GunShot(): p_map.c line ~800
  * 'rocket':  (P_Random()%8 + 1) * 20 = 20-160 direct hit damage.
- *            Based on: A_FireMissile() / P_DamageMobj() — p_pspr.c, p_inter.c
+ *            Based on: A_FireMissile() / P_DamageMobj(): p_pspr.c, p_inter.c
  */
 function rollWeaponDamage(damageType) {
     switch (damageType) {
         case 'melee': {
-            // Based on: linuxdoom-1.10/p_map.c:P_LineAttack() — Berserk multiplies by 10
+            // Based on: linuxdoom-1.10/p_map.c:P_LineAttack(): Berserk multiplies by 10
             const baseDamage = (Math.floor(Math.random() * 10) + 1) * 2;
             return hasPowerup('berserk') ? baseDamage * 10 : baseDamage;
         }
@@ -222,9 +222,9 @@ function findHitscanTarget(dirX, dirY, range) {
  * - 'melee' (Fist, Chainsaw): Short-range cone check, random 2-20 damage.
  * - 'hitscan' (Pistol, Chaingun): Single ray, random 5/10/15 damage.
  * - 'pellets' (Shotgun): 7 rays with angular spread, each doing 5/10/15 damage.
- *   Based on: linuxdoom-1.10/p_pspr.c:A_FireShotgun() — 7 bullets with
+ *   Based on: linuxdoom-1.10/p_pspr.c:A_FireShotgun(): 7 bullets with
  *   P_GunShot(mo, false) which applies horizontal spread.
- *   Accuracy: Approximation — uses ±22.5° spread per pellet (matching DOOM's
+ *   Accuracy: Approximation: uses ±22.5° spread per pellet (matching DOOM's
  *   (P_Random()-P_Random())<<18 in a 32-bit angle space ≈ ±22.4° max).
  * - 'rocket' (Rocket Launcher): Spawns a player projectile instead of hitscan.
  */
@@ -245,7 +245,7 @@ function checkWeaponHit() {
         // Shotgun: 7 individual pellets, each with angular spread
         // Based on: linuxdoom-1.10/p_pspr.c:A_FireShotgun() calls P_GunShot(mo, false)
         // which applies (P_Random()-P_Random())<<18 spread ≈ ±22.5° max per pellet.
-        // Accuracy: Approximation — we use ±22.5° triangular spread via
+        // Accuracy: Approximation: we use ±22.5° triangular spread via
         // (random - random) to approximate DOOM's (P_Random()-P_Random()).
         for (let pellet = 0; pellet < weapon.pellets; pellet++) {
             const spreadFraction = (Math.floor(Math.random() * 256) - Math.floor(Math.random() * 256)) / 255;
@@ -275,7 +275,7 @@ function checkWeaponHit() {
         return;
     }
 
-    // No target or target behind a wall — spawn wall puff
+    // No target or target behind a wall: spawn wall puff
     if (weapon.hitscan) {
         const wallHitPoint = rayHitPoint(state.playerX, state.playerY, forwardX, forwardY, weapon.range);
         if (wallHitPoint) spawnPuff(wallHitPoint.x, wallHitPoint.y);
@@ -292,7 +292,7 @@ function checkWeaponHit() {
  * direct hit damage plus splash damage in a radius.
  *
  * Based on: linuxdoom-1.10/p_pspr.c:A_FireMissile() and info.c:mobjinfo[MT_ROCKET]
- * Accuracy: Approximation — uses the same speed, radius, and damage values but
+ * Accuracy: Approximation: uses the same speed, radius, and damage values but
  * the projectile physics use our simplified per-frame movement rather than DOOM's
  * fixed-point P_MobjThinker().
  */
@@ -340,7 +340,7 @@ function spawnPlayerRocket(forwardX, forwardY) {
  * Damage falls off linearly with distance from the impact point.
  *
  * Based on: linuxdoom-1.10/p_map.c:P_RadiusAttack()
- * Accuracy: Exact — uses DOOM's subtractive falloff: damage = splashDamage - dist.
+ * Accuracy: Exact: uses DOOM's subtractive falloff: damage = splashDamage - dist.
  */
 export function rocketExplosion(impactX, impactY) {
     // Based on: linuxdoom-1.10/p_map.c:PIT_RadiusAttack()

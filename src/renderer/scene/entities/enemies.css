@@ -1,5 +1,5 @@
 /* ========================================================================
-   Enemies — combined sprite sheets (walk + attack + death in one image)
+   Enemies: combined sprite sheets (walk + attack + death in one image)
    Rows 0-4: walk rotations (mirrored 6-8 via scaleX(-1) set by JS)
    Row 5: attack (front-facing)
    Row 6: death
@@ -28,8 +28,8 @@
     --w: 64; --h: 59; --cols: 6; --frames: 2; --rows: 7;
 }
 
-/* Spectre: invisible Demon variant — same sprites with SVG fuzz displacement.
-   Based on: linuxdoom-1.10/r_things.c — MF_SHADOW flag renders with "fuzz" effect.
+/* Spectre: invisible Demon variant: same sprites with SVG fuzz displacement.
+   Based on: linuxdoom-1.10/r_things.c: MF_SHADOW flag renders with "fuzz" effect.
    Uses animated feTurbulence → feDisplacementMap → feColorMatrix (see #fuzz in index.html) */
 .sprite[data-type="spectre"] {
     background-image: url('/assets/sprites/sheets/SARG.png');
@@ -51,7 +51,7 @@ body.all-enemies-shadow .enemy .sprite {
 }
 
 /* ========================================================================
-   Destructibles — barrel idle (row 0) + explosion (row 1)
+   Destructibles: barrel idle (row 0) + explosion (row 1)
    ======================================================================== */
 
 .sprite[data-type="barrel"] {

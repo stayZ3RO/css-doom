@@ -1,5 +1,5 @@
 /**
- * Door rendering — scene construction and visual state updates.
+ * Door rendering: scene construction and visual state updates.
  */
 
 import { dom, sceneState } from '../../dom.js';
@@ -22,7 +22,7 @@ export function buildDoor(door, trackWallData) {
     doorPanel.style.setProperty('--offset', `${-travelDistance}px`);
     doorGroup.appendChild(doorPanel);
 
-    // Move ceiling surfaces into the panel — use door sector's light
+    // Move ceiling surfaces into the panel: use door sector's light
     const doorLight = getSectorLight(door.sectorIndex);
     for (const surfaceElement of sceneState.surfaceElements) {
         if (surfaceElement._sectorIndex === door.sectorIndex && surfaceElement._type === 'ceiling') {
@@ -31,7 +31,7 @@ export function buildDoor(door, trackWallData) {
         }
     }
 
-    // Move door face walls into the panel — each wall keeps its own sector's light
+    // Move door face walls into the panel: each wall keeps its own sector's light
     for (const wallElement of sceneState.wallElements) {
         const wallData = wallElement._wall;
         if (!wallData || !wallData.isUpperWall) continue;

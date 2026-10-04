@@ -1,5 +1,5 @@
 /**
- * Crusher rendering — scene construction and visual state updates.
+ * Crusher rendering: scene construction and visual state updates.
  */
 
 import { dom, sceneState } from '../../dom.js';

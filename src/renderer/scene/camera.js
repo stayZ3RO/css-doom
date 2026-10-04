@@ -1,5 +1,5 @@
 /**
- * Camera Module — Updates the CSS 3D camera transform.
+ * Camera Module: Updates the CSS 3D camera transform.
  *
  * CSS has no native "camera" concept. To simulate one, we apply an inverse
  * transform to the entire scene container (#scene). Instead of moving a camera

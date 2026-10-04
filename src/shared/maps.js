@@ -3,11 +3,11 @@
  *
  * Holds the parsed JSON map data (walls, sectors, things, doors, lifts, etc.)
  * loaded from maps/E*M*.json files. Both the game layer and renderer import
- * this directly — it is not owned by either layer.
+ * this directly: it is not owned by either layer.
  *
  * Also owns map loading, level transitions, and map sequencing. The loader
  * orchestrates game state resets and renderer scene (re)builds, but does not
- * own either — it delegates to them.
+ * own either: it delegates to them.
  */
 
 import { EYE_HEIGHT } from '../game/constants.js';

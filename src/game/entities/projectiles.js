@@ -101,7 +101,7 @@ export function updateProjectiles() {
             }
         }
 
-        // Check enemy collision — projectiles can hit any enemy except the one
+        // Check enemy collision: projectiles can hit any enemy except the one
         // that fired them. This enables infighting: an Imp fireball that misses
         // the player and hits a Zombieman will cause the Zombieman to retarget
         // the Imp. Based on: linuxdoom-1.10/p_map.c:PIT_CheckThing()
@@ -160,7 +160,7 @@ function spawnFireballExplosion(worldX, worldY, worldZ) {
  * infighting retarget when the projectile hits another enemy.
  */
 export function spawnProjectile(enemy, projectileDefinition) {
-    // Resolve target position — aim at the current AI target (player or enemy)
+    // Resolve target position: aim at the current AI target (player or enemy)
     let targetX, targetY, targetFloorHeight;
     if (enemy.ai.target === 'player') {
         targetX = state.playerX;
@@ -216,7 +216,7 @@ export function spawnProjectile(enemy, projectileDefinition) {
         speed,
         missileDamage: projectileDefinition.missileDamage,
         hitSound: projectileDefinition.hitSound,
-        source: enemy, // which enemy fired this — used for infighting retarget on hit
+        source: enemy, // which enemy fired this: used for infighting retarget on hit
         lifetime,
         spawnTime: performance.now() / 1000,
     };

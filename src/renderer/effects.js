@@ -1,5 +1,5 @@
 /**
- * Visual effects — flash overlays and abstract player state classes.
+ * Visual effects: flash overlays and abstract player state classes.
  * Game logic calls these to trigger visual feedback without DOM knowledge.
  */
 

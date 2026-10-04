@@ -19,13 +19,13 @@
  * `collectInput()` is called once per frame before movement. It resets
  * the input state, sums all provider contributions, and clamps the result.
  * Adding a new input method requires only writing the module and calling
- * `registerInputProvider` — no changes to the game layer.
+ * `registerInputProvider`: no changes to the game layer.
  */
 
 const providers = [];
 
 /**
- * Unified input state — owned by the input layer, read by the game layer.
+ * Unified input state: owned by the input layer, read by the game layer.
  * Populated each frame by collectInput() from all registered providers.
  */
 export const input = { moveX: 0, moveY: 0, turn: 0, turnDelta: 0, run: false, fireHeld: false };

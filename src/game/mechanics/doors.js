@@ -26,7 +26,7 @@ import { getSectorAt } from '../physics.js';
 import { playSound } from '../../audio/audio.js';
 import * as renderer from '../../renderer/index.js';
 
-const DOOR_PASSABLE_DELAY = 0.8; // seconds — slightly before fully open to allow ducking under
+const DOOR_PASSABLE_DELAY = 0.8; // seconds: slightly before fully open to allow ducking under
 
 /**
  * Returns the door entry for a door wall, or null if not a door.
@@ -54,7 +54,7 @@ export function initDoors() {
     if (!mapData.doors) return;
 
     for (const door of mapData.doors) {
-        // Identify face walls — any upper wall bordering the door sector
+        // Identify face walls: any upper wall bordering the door sector
         const faceWalls = [];
         for (const wall of mapData.walls) {
             if (!wall.isUpperWall) continue;
@@ -62,7 +62,7 @@ export function initDoors() {
             faceWalls.push(wall);
         }
 
-        // Identify track walls — solid walls adjacent to face walls that form the door jambs
+        // Identify track walls: solid walls adjacent to face walls that form the door jambs
         const trackWalls = [];
         for (const wall of mapData.walls) {
             if (!wall.isSolid || wall.isDoor) continue;
@@ -99,7 +99,7 @@ export function toggleDoor(sectorIndex) {
     const doorEntry = state.doorState.get(sectorIndex);
     if (!doorEntry) return;
 
-    // Check key requirement — block if player doesn't have the required key
+    // Check key requirement: block if player doesn't have the required key
     // Based on: linuxdoom-1.10/p_doors.c:EV_VerticalDoor()
     if (doorEntry.keyRequired && !doorEntry.open) {
         if (!state.collectedKeys.has(doorEntry.keyRequired)) {
@@ -127,17 +127,17 @@ export function toggleDoor(sectorIndex) {
 /**
  * Close a door by resetting its state and triggering the close animation.
  * If the player is inside the door sector, reverse the door (reopen) to avoid
- * crushing them — matching DOOM's T_VerticalDoor() blocked-check behavior.
+ * crushing them: matching DOOM's T_VerticalDoor() blocked-check behavior.
  * Based on: linuxdoom-1.10/p_doors.c:T_VerticalDoor()
  */
 function closeDoor(sectorIndex) {
     const doorEntry = state.doorState.get(sectorIndex);
     if (!doorEntry || !doorEntry.open) return;
 
-    // Check if the player is inside the door sector — if so, reverse
+    // Check if the player is inside the door sector: if so, reverse
     const playerSector = getSectorAt(state.playerX, state.playerY);
     if (playerSector && playerSector.sectorIndex === sectorIndex) {
-        // Player is in the doorway — keep open and retry closing later
+        // Player is in the doorway: keep open and retry closing later
         doorEntry.timer = setTimeout(() => closeDoor(sectorIndex), DOOR_CLOSE_DELAY);
         return;
     }
@@ -169,7 +169,7 @@ export function tryOpenDoor() {
 
     for (const wall of mapData.walls) {
         if (!wall.isUpperWall) continue;
-        // Skip walls whose linedef targets a remote sector by tag — those
+        // Skip walls whose linedef targets a remote sector by tag: those
         // trigger a specific action (switch, walk-over, etc.) and should not
         // also open the adjacent door generically.
         const linedef = mapData.linedefs[wall.linedefIndex];

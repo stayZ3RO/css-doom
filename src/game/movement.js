@@ -57,7 +57,7 @@ function updateLocation(deltaTime) {
      *   2. If blocked, try moving only along X (wall sliding on Y axis).
      *   3. If that is also blocked, try moving only along Y (wall sliding on X axis).
      *
-     * This gives natural "wall sliding" behavior — the player glides along
+     * This gives natural "wall sliding" behavior: the player glides along
      * walls instead of stopping dead when moving diagonally into them.
      */
 
@@ -86,7 +86,7 @@ function updateHeight() {
     state.floorHeight = getFloorHeightAt(state.playerX, state.playerY);
     state.playerZ = state.floorHeight + EYE_HEIGHT;
 
-    // Based on: linuxdoom-1.10/p_mobj.c:P_ZMovement() — oof on hard landing.
+    // Based on: linuxdoom-1.10/p_mobj.c:P_ZMovement(): oof on hard landing.
     // DOOM plays sfx_oof when momz < -GRAVITY*8. With gravity=1 unit/tic²,
     // that velocity is reached after falling 32 units (v²=2gh → h=8²/2=32).
     if (prevFloorHeight - state.floorHeight > 32) {

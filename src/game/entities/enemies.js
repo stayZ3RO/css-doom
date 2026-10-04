@@ -1,7 +1,7 @@
 /**
- * Enemies — AI state management and respawn logic.
+ * Enemies: AI state management and respawn logic.
  *
- * Pure game logic — no DOM, CSS, or sprite knowledge. Visual updates are
+ * Pure game logic: no DOM, CSS, or sprite knowledge. Visual updates are
  * delegated to renderer/entities/sprites.js which owns all sprite sheet
  * layout, rotation-to-frame mapping, and animation state.
  */

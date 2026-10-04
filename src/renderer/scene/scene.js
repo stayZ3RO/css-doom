@@ -1,10 +1,10 @@
 /**
- * Scene orchestration — teardown, build, and texture preloading.
+ * Scene orchestration: teardown, build, and texture preloading.
  *
  * Coordinate mapping from DOOM to CSS 3D:
  *   DOOM X  → CSS X  (left/right)
- *   DOOM Y  → CSS −Z (forward/back — DOOM Y increases northward, CSS Z increases toward viewer)
- *   DOOM Z (height) → CSS −Y (vertical — CSS Y increases downward)
+ *   DOOM Y  → CSS −Z (forward/back: DOOM Y increases northward, CSS Z increases toward viewer)
+ *   DOOM Z (height) → CSS −Y (vertical: CSS Y increases downward)
  */
 
 import { dom, sceneState } from '../dom.js';
@@ -40,7 +40,7 @@ export function teardownScene() {
     sceneState.thingDom.clear();
     sceneState.projectileDom.clear();
     clearSpatialGrid();
-    // Atomic DOM clear — single reflow instead of one per child removal
+    // Atomic DOM clear: single reflow instead of one per child removal
     dom.scene.replaceChildren();
     const oldSvg = document.getElementById('clip-svgs');
     if (oldSvg) oldSvg.remove();
@@ -112,7 +112,7 @@ function preloadTextures() {
             img.src = url;
         }
 
-        // Safety timeout — resolve even if some textures stall
+        // Safety timeout: resolve even if some textures stall
         setTimeout(resolve, 5000);
     });
 }

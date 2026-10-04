@@ -60,11 +60,11 @@ export function buildWalls() {
 
         if (wallLength < 1 || wallHeight < 1) continue;
 
-        // Skip lower walls on lift sector boundaries — shaft walls created
+        // Skip lower walls on lift sector boundaries: shaft walls created
         // by initLifts() cover this geometry with the correct height span
         if (wall.isLiftWall) continue;
 
-        // Skip untextured walls — in DOOM, texture name "-" or empty means transparent/passable
+        // Skip untextured walls: in DOOM, texture name "-" or empty means transparent/passable
         const textureName = wall.texture;
         if (!textureName || textureName === NO_TEXTURE || textureName === '') continue;
 
@@ -74,7 +74,7 @@ export function buildWalls() {
         if (wall.wallId) wallElement.id = wall.wallId;
         if (isSwitch) wallElement.classList.add('switch');
 
-        // Pass raw DOOM coordinates — CSS computes width, height, position, rotation
+        // Pass raw DOOM coordinates: CSS computes width, height, position, rotation
         wallElement.style.setProperty('--start-x', wall.start.x);
         wallElement.style.setProperty('--start-y', wall.start.y);
         wallElement.style.setProperty('--end-x', wall.end.x);
@@ -106,7 +106,7 @@ export function buildWalls() {
 }
 
 /**
- * Builds "sky walls" — tall occluder surfaces on the perimeter of sky-ceiling
+ * Builds "sky walls": tall occluder surfaces on the perimeter of sky-ceiling
  * sectors. These extend from the wall top far upward to block the view of
  * distant level geometry through open sky areas.
  *
@@ -145,7 +145,7 @@ function buildSkyWalls() {
 
     // Compute connected groups of sky sectors. Sectors in the same group
     // share boundaries and form one contiguous sky area. Sky walls should
-    // not cull elements that belong to the same sky group — those elements
+    // not cull elements that belong to the same sky group: those elements
     // are the visible perimeter of the same outdoor area.
     const skyGroupOf = new Map(); // sectorIndex → group ID
     let groupId = 0;
@@ -178,7 +178,7 @@ function buildSkyWalls() {
     for (const wall of mapData.walls) {
         if (!skyIndices.has(wall.sectorIndex)) continue;
 
-        // Skip walls between two sky sectors — no occlusion needed there.
+        // Skip walls between two sky sectors: no occlusion needed there.
         // Keep one-sided perimeter walls (far edges) and two-sided boundary
         // walls between sky and non-sky (above window openings).
         const ld = linedefSectors.get(wall.linedefIndex);
@@ -212,7 +212,7 @@ function buildSkyWalls() {
 
         appendToSector(el, wall.sectorIndex);
 
-        // Store sky wall plane for culling — every sky wall acts as an occluder.
+        // Store sky wall plane for culling: every sky wall acts as an occluder.
         const wallAngle = Math.atan2(dy, dx);
         const nx = Math.sin(wallAngle);
         const ny = -Math.cos(wallAngle);

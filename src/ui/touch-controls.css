@@ -1,4 +1,4 @@
-/* Touch Controls — only visible on touch devices */
+/* Touch Controls: only visible on touch devices */
 
 #touch-controls {
     display: none;
@@ -46,7 +46,7 @@
     -webkit-user-select: none;
 }
 
-/* Joystick — anchored above the status bar */
+/* Joystick: anchored above the status bar */
 
 #touch-joystick-base {
     position: fixed;
@@ -76,7 +76,7 @@
     background: rgba(255, 255, 255, 0.35);
 }
 
-/* Use button — anchored above the status bar */
+/* Use button: anchored above the status bar */
 
 #touch-use {
     position: fixed;

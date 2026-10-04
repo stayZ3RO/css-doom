@@ -1,8 +1,8 @@
 # cssDOOM
 
-> This is a redeploy of Niels Leenheer's cssDOOM (https://nielsleenheer.com/articles/2026/css-is-doomed/), rebuilt here with a Vite-based static site and GitHub Actions deployment to GitHub Pages. The rendering engine, game logic, and CSS techniques described below are Niels Leenheer's original work (based on id Software's DOOM); my contribution in this repo is the build and deployment pipeline. This redeploy is live at https://stayz3ro.github.io/css-doom/.
+> I rebuilt Niels Leenheer's cssDOOM (https://nielsleenheer.com/articles/2026/css-is-doomed/) as a Vite-based static site, with GitHub Actions deploying it to GitHub Pages. Niels Leenheer created the rendering engine, game logic, and CSS techniques described below, based on id Software's DOOM. I added the build and deployment pipeline. The site is live at https://stayz3ro.github.io/css-doom/.
 
-A recreation of the original DOOM rendered entirely with CSS. This isn't `<canvas>` or WebGL — every wall, floor, sprite, and effect is a styled DOM element positioned in 3D space via CSS transforms and `preserve-3d`.
+A recreation of the original DOOM rendered entirely with CSS. Every wall, floor, sprite, and effect is a styled DOM element positioned in 3D space via CSS transforms and `preserve-3d`, without `<canvas>` or WebGL.
 
 The game logic is written in JavaScript using id Software's [open-source release](https://github.com/id-Software/DOOM) as a reference.
 
@@ -46,13 +46,13 @@ CSS calculates the correct width, height and 3D transforms using trigonometry fu
 }
 ```
 
-DOOM's coordinate system doesn't map directly to CSS 3D. DOOM uses a top-down 2D system where Y increases going north. CSS 3D has Y going up and Z going toward the viewer. That's why you see `translate3d(x, -z, -y)` — our custom properties are in DOOM coordinates while the transform needs CSS coordinates.
+DOOM's coordinate system doesn't map directly to CSS 3D. DOOM uses a top-down 2D system where Y increases going north. CSS 3D has Y going up and Z going toward the viewer. That's why you see `translate3d(x, -z, -y)`: our custom properties are in DOOM coordinates while the transform needs CSS coordinates.
 
-Once we've built our scene we run a game loop in JavaScript that tracks the game state — player position, input, collisions, enemy AI. This game loop is the least interesting part of this project, as it is basically a recreation of the original code in JavaScript.
+Once the scene is built, a JavaScript game loop tracks the game state: player position, input, collisions, and enemy AI. It recreates the original game's logic in JavaScript.
 
 There is a strict separation between the game loop in JavaScript and the rendering in CSS. JavaScript sets a limited number of CSS custom properties such as `--player-x`, `--player-y`, `--player-z` and `--player-angle` which determine the location of the player in our scene.
 
-CSS does the rest — it moves the entire world in the opposite direction of the player, since CSS doesn't have a camera:
+CSS moves the entire world in the opposite direction of the player, since CSS doesn't have a camera:
 
 ```css
 #scene {
@@ -83,11 +83,11 @@ Keyboard arrow keys and the gamepad's right stick apply a turn rate scaled by `d
 
 ### 3D transforms and CSS trig functions
 
-The entire scene is built with `transform-style: preserve-3d`. Wall dimensions use `hypot()`, wall angles use `atan2()`, and the spectator follow camera uses `sin()` and `cos()` — all computed by the browser's CSS engine from raw DOOM coordinates.
+The entire scene is built with `transform-style: preserve-3d`. Wall dimensions use `hypot()`, wall angles use `atan2()`, and the spectator follow camera uses `sin()` and `cos()`: all computed by the browser's CSS engine from raw DOOM coordinates.
 
 ### Animating custom properties with `@property`
 
-Thanks to `@property` we can animate and transition CSS custom properties. This is fundamental to how the rendering works — sector lighting is controlled by a `--light` custom property that inherits down to all elements in a sector and can be animated for flickering effects. The `--player-z` property is registered as a number to enable smooth falling transitions when the player walks off a ledge.
+Thanks to `@property` we can animate and transition CSS custom properties. This is fundamental to how the rendering works: sector lighting is controlled by a `--light` custom property that inherits down to all elements in a sector and can be animated for flickering effects. The `--player-z` property is registered as a number to enable smooth falling transitions when the player walks off a ledge.
 
 ### Irregular shapes with `clip-path`
 
@@ -95,11 +95,11 @@ DOOM's floors and ceilings can be any polygon. We use `clip-path` with `polygon(
 
 ### Sprite animation with `steps()`
 
-DOOM sprites are combined into spritesheets with frames side by side. CSS animates `background-position` across the frames using `steps()` for discrete frame changes. Each enemy has sprites for 5 viewing angles — rotations 6 through 8 are mirrors of rotations 2 through 4, handled with `scaleX(-1)`.
+DOOM sprites are combined into spritesheets with frames side by side. CSS animates `background-position` across the frames using `steps()` for discrete frame changes. Each enemy has sprites for 5 viewing angles: rotations 6 through 8 are mirrors of rotations 2 through 4, handled with `scaleX(-1)`.
 
 ### Projectiles with CSS animations
 
-Projectiles use separate `translate` and `rotate` properties. The position is animated from `--start-x/y/z` to `--end-x/y/z` via a CSS `@keyframes` animation, while `rotate` stays reactive to `--player-angle` so the sprite keeps facing the camera. When a collision is detected, JavaScript removes the element mid-flight and spawns an explosion — a three-frame spritesheet that self-destructs on `animationend`.
+Projectiles use separate `translate` and `rotate` properties. The position is animated from `--start-x/y/z` to `--end-x/y/z` via a CSS `@keyframes` animation, while `rotate` stays reactive to `--player-angle` so the sprite keeps facing the camera. When a collision is detected, JavaScript removes the element mid-flight and spawns an explosion: a three-frame spritesheet that self-destructs on `animationend`.
 
 ### Doors and lifts with CSS `transition`
 
@@ -132,7 +132,7 @@ Enemies, decorations, barrels, and pickups always face the camera via `rotateY(c
 
 ### Spectator mode with separate transform properties
 
-Spectator mode offers a top-down map view and a third-person follow camera. By using separate `translate`, `rotate`, and `transform` CSS properties instead of a single combined `transform`, transitions between first-person and spectator views are smooth — the camera tilts, rises, and repositions independently rather than arcing through 3D space.
+Spectator mode offers a top-down map view and a third-person follow camera. By using separate `translate`, `rotate`, and `transform` CSS properties instead of a single combined `transform`, transitions between first-person and spectator views are smooth: the camera tilts, rises, and repositions independently rather than arcing through 3D space.
 
 The follow camera position is computed entirely in CSS using `sin()` and `cos()` to place the camera behind the player at a configurable distance.
 
@@ -143,11 +143,11 @@ The Spectre's invisibility effect uses an SVG filter applied via CSS: `feColorMa
 
 ## Performance
 
-Performance is the elephant in the room. We're asking the browser's compositor to deal with thousands of 3D-transformed elements. Large maps can overwhelm the browser — Safari on iOS will crash if it becomes too much. But it is impressive that a browser can render this at all. The browser was not built for this.
+The browser's compositor has to handle thousands of 3D-transformed elements. Large maps can overwhelm it; Safari on iOS will crash if the workload is too large. It is impressive that a browser can render this at all, given that it was not built for this workload.
 
 We cull elements that are outside the player's view. The default approach is JavaScript-based: every few frames we check each element's position and hide it if it's behind the player, too far away, or outside the frustum. Sky culling hides geometry that should be occluded by DOOM's sky walls, which the original engine rendered as a 2D hack that we can't replicate in a true 3D scene.
 
-There is also an experimental pure-CSS culling implementation that uses a type grinding hack — a paused animation with a computed negative delay that converts a numeric 0/1 into a `visibility` keyword. When CSS `if()` gets wider support, this can be replaced with a clean conditional.
+There is also an experimental pure-CSS culling implementation that uses a type grinding hack: a paused animation with a computed negative delay that converts a numeric 0/1 into a `visibility` keyword. When CSS `if()` gets wider support, this can be replaced with a clean conditional.
 
 
 ## Known bugs

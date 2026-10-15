@@ -23,7 +23,7 @@ Use this checklist to capture proof of work for the GitHub repo and portfolio.
 ## Deployment
 
 - [ ] GitHub Pages settings
-- [ ] Source set to main branch and root folder
+- [ ] Workflow uploads the dist artifact (`.github/workflows/deploy.yml`)
 - [ ] Deployment completed
 - [ ] Public site URL working
 

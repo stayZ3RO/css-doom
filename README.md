@@ -1,6 +1,6 @@
 # cssDOOM
 
-> I rebuilt Niels Leenheer's cssDOOM (https://nielsleenheer.com/articles/2026/css-is-doomed/) as a Vite-based static site, with GitHub Actions deploying it to GitHub Pages. Niels Leenheer created the rendering engine, game logic, and CSS techniques described below, based on id Software's DOOM. I added the build and deployment pipeline. The site is live at https://stayz3ro.github.io/css-doom/.
+> I rebuilt Niels Leenheer's cssDOOM (https://nielsleenheer.com/articles/2026/css-is-doomed/) as a Vite-based static site. Niels Leenheer created the rendering engine, game logic, and CSS techniques described below, based on id Software's DOOM. I added the build and deployment pipeline. https://cssdoom.wtf is the canonical URL. Cloudflare serves it in front of the GitHub Pages build from `.github/workflows/deploy.yml`. https://stayz3ro.github.io/css-doom/ is the fallback.
 
 A recreation of the original DOOM rendered entirely with CSS. Every wall, floor, sprite, and effect is a styled DOM element positioned in 3D space via CSS transforms and `preserve-3d`, without `<canvas>` or WebGL.
 

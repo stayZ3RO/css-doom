@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>CSS DOOM Demo | CSS DOOM Static Lab</title>
+
+  <link rel="stylesheet" href="../src/demo.css" />
+</head>
+<body>
+  <main class="demo-shell">
+    <section class="demo-header">
+      <div>
+        <p class="eyebrow">CSS DOOM Static Lab</p>
+        <h1>Interactive CSS DOOM Demo</h1>
+        <p>
+          A static browser-based demo using HTML, CSS transforms, and JavaScript controls.
+        </p>
+      </div>
+
+      <a href="../index.html" class="back-link">Back to Project Home</a>
+    </section>
+
+    <section class="game-frame">
+      <div class="viewport">
+        <div class="sky"></div>
+
+        <div id="world" class="world">
+          <div class="wall wall-left"></div>
+          <div class="wall wall-right"></div>
+          <div class="wall wall-center"></div>
+          <div class="floor"></div>
+          <div class="ceiling"></div>
+
+          <div class="enemy" id="enemy">
+            <div class="enemy-head"></div>
+            <div class="enemy-body"></div>
+          </div>
+        </div>
+
+        <div class="weapon">
+          <div class="barrel"></div>
+          <div class="gun-body"></div>
+        </div>
+
+        <div class="crosshair">+</div>
+
+        <div class="hud">
+          <div>
+            <span>HEALTH</span>
+            <strong id="health">100</strong>
+          </div>
+          <div>
+            <span>AMMO</span>
+            <strong id="ammo">50</strong>
+          </div>
+          <div>
+            <span>SECTOR</span>
+            <strong id="sector">01</strong>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="controls">
+      <h2>Controls</h2>
+      <p>Use the buttons or keyboard controls.</p>
+
+      <div class="control-grid">
+        <button id="moveForward">Move Forward</button>
+        <button id="turnLeft">Turn Left</button>
+        <button id="fire">Fire</button>
+        <button id="turnRight">Turn Right</button>
+      </div>
+
+      <p class="keyboard-note">
+        Keyboard: W = move forward, A = turn left, D = turn right, Space = fire
+      </p>
+
+      <p id="eventLog" class="event-log">
+        Status: Demo loaded.
+      </p>
+    </section>
+  </main>
+
+  <script src="../src/demo.js"></script>
+</body>
+</html>

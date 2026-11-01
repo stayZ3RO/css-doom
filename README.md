@@ -19,6 +19,15 @@ npm run dev
 
 For a production build, run `npm run build -- --base=/css-doom/`, the same base path used for GitHub Pages.
 
+## Layout
+
+- `index.html`, `index.css`, `index.js`: the page, its stylesheet imports, and the entry point with the game loop.
+- `src/`: the engine. `game/` (state, physics, entities), `renderer/` (the CSS scene), `input/` (keyboard, mouse, touch, gamepad), `audio/`, `ui/` (menus, HUD, help) and `shared/`.
+- `public/`: copied into the build as is. `maps/` holds the level JSON, `assets/` the textures, sprites, sounds and fonts.
+- `docs/`: deployment and project notes, the dependency audit, and `demo.html`, an older standalone demo page that is not part of the build.
+- `wrangler.toml`: Cloudflare Workers config. It stays at the root because Wrangler looks for it there. The current deploy is GitHub Pages (`.github/workflows/deploy.yml`), which does not use it.
+- `.github/workflows/`: the Pages deploy, Node CI and gitleaks, run on the GitHub mirror. `.forgejo/workflows/validate.yml` runs the build and a secret scan on Forgejo.
+
 ## How it works
 
 The renderer starts with the linedefs, sidedefs, and sectors from the DOOM WAD file. It builds a scene from `<div>` elements placed in 3D space with CSS transforms. JavaScript supplies the raw DOOM vertex geometry as custom properties; CSS computes the transforms rather than receiving finished positions.

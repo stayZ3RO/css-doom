@@ -32,4 +32,3 @@ Use this checklist to capture proof of work for the GitHub repo and portfolio.
 - [ ] Homepage loaded
 - [ ] README updated
 - [ ] Deployment notes added
-- [ ] Screenshot folder populated

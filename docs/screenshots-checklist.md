@@ -30,7 +30,6 @@ Use this checklist to capture proof of work for the GitHub repo and portfolio.
 ## Final Project Proof
 
 - [ ] Homepage loaded
-- [ ] Static demo button working
 - [ ] README updated
 - [ ] Deployment notes added
 - [ ] Screenshot folder populated

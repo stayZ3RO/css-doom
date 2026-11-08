@@ -20,4 +20,4 @@ No commits or pushes without my explicit go. Open pull requests on Forgejo. No A
 
 ## CI
 
-Workflows run on the GitHub mirror, on push only. The Pages deploy is `.github/workflows/deploy.yml`.
+GitHub workflows run on the mirror on push, and deploy and gitleaks can also be run by hand (gitleaks also runs weekly). `.forgejo/workflows/validate.yml` runs on Forgejo. The Pages deploy is `.github/workflows/deploy.yml`.
